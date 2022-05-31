@@ -2,3 +2,6 @@
 
 ## Referenzverwaltung
 
+## Maven config
+
+mvn clean javafx:run
