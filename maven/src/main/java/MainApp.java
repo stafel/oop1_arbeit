@@ -15,14 +15,14 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("JavaFX App");
+        this.primaryStage.setTitle("Referenzverwaltung");
         this.showMainView();
     }
 
     public void showMainView() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource("view/MainView.fxml"));
+            loader.setLocation(MainApp.class.getResource("view/ReferenceOverviewView.fxml"));
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(loader.load());
