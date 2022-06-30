@@ -1,3 +1,10 @@
-controller\ReferenceOverviewController.class
+model\IReference.class
+model\DataAccessBridge.class
 MainApp.class
-controller\MainController.class
+controller\RefOverController.class
+model\SourceBook.class
+model\Reference.class
+model\RuleDomain.class
+model\Source.class
+model\ISource.class
+model\IRuleDomain.class
