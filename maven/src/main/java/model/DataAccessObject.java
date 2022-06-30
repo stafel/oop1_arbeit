@@ -49,4 +49,49 @@ public class DataAccessObject {
     public ArrayList<IReference> getAvailableReferences() {
         return references;
     }
+
+    public boolean ReferenceNameValid(String name) {
+        for (IReference ref : references) {
+            if (ref.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean createReference(IReference ref) {
+        if (!ReferenceNameValid(ref.getName())) {
+            return false;
+        } else {
+            references.add(ref);
+            return true;
+        }
+    }
+
+    public ISource getSource(String name) {
+        for (ISource src : sources) {
+            if (src.getName().equals(name)) {
+                return src;
+            }
+        }
+        return null;
+    }
+
+    public IReference getReference(String name) {
+        for (IReference ref : references) {
+            if (ref.getName().equals(name)) {
+                return ref;
+            }
+        }
+        return null;
+    }
+
+    public IRuleDomain getDomain(String name) {
+        for (IRuleDomain dom : domains) {
+            if (dom.getName().equals(name)) {
+                return dom;
+            }
+        }
+        return null;
+    }
 }

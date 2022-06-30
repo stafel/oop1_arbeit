@@ -13,6 +13,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.control.TableRow;
@@ -40,7 +41,8 @@ public class RefOverController extends BaseController{
     @FXML
     @Override
     void onCreateClicked(ActionEvent e) {
-        System.out.println("almost");
+        //showRefDetail((Stage)refTable.getScene().getWindow());
+        showRefDetail(generateSubstage("Neue Referenz", true));
     }
 
     public void initialize(){

@@ -9,30 +9,30 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="156.0" prefWidth="222.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="156.0" prefWidth="270.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.RefDetailController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label text="Name" />
-            <TextField fx:id="name" />
+            <TextField fx:id="name" prefHeight="26.0" prefWidth="180.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label text="Book" />
-            <ComboBox fx:id="book" prefWidth="150.0" />
+            <ComboBox fx:id="book" prefHeight="26.0" prefWidth="180.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label text="Domain" />
-            <ComboBox fx:id="domain" prefWidth="150.0" />
+            <ComboBox fx:id="domain" prefHeight="26.0" prefWidth="180.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="600.0" spacing="20.0">
          <children>
             <Label text="Pages" />
-            <TextField fx:id="page" />
+            <TextField fx:id="page" prefHeight="26.0" prefWidth="180.0" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0" spacing="10.0">
