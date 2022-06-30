@@ -1,12 +1,15 @@
 controller\BaseController.class
 model\IReference.class
-model\DataAccessBridge.class
 controller\AboutController.class
 MainApp.class
 controller\RefOverController.class
+controller\RefDetailController$2.class
 model\Source.class
 model\ISource.class
 model\IRuleDomain.class
+model\DataAccessObject.class
 model\SourceBook.class
+controller\RefDetailController.class
 model\Reference.class
 model\RuleDomain.class
+controller\RefDetailController$1.class

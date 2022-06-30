@@ -1,5 +1,6 @@
 package controller;
 
+import model.DataAccessObject;
 import model.IReference;
 import model.Reference;
 import model.Source;
@@ -36,11 +37,22 @@ public class RefOverController extends BaseController{
         super();
     }
 
+    @FXML
+    @Override
+    void onCreateClicked(ActionEvent e) {
+        System.out.println("almost");
+    }
+
     public void initialize(){
 
-        observableReferences = FXCollections.observableArrayList(
-            new Reference("Test", new Source("GURPS"), new RuleDomain("Repairing"), "1 - 4")
-        );
+        // initialize DAO
+        DataAccessObject dao = DataAccessObject.getInstance();
+
+        observableReferences = FXCollections.observableArrayList();
+
+        for (IReference ref : dao.getAvailableReferences()) {
+            observableReferences.add(ref);
+        }
         
         refName.setCellValueFactory(
             new PropertyValueFactory<IReference,String>("name")

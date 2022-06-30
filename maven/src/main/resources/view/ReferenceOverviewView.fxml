@@ -18,9 +18,9 @@
           </Menu>
             <Menu mnemonicParsing="false" text="Edit">
               <items>
-                <MenuItem mnemonicParsing="false" text="Neues Element Erstellen" />
-                  <MenuItem mnemonicParsing="false" text="Ausgewähltes Element Bearbeiten" />
-                  <MenuItem mnemonicParsing="false" text="Ausgewähltes Element Löschen" />
+                <MenuItem mnemonicParsing="false" onAction="#onCreateClicked" text="Neues Element Erstellen" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEditClicked" text="Ausgewähltes Element Bearbeiten" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteClicked" text="Ausgewähltes Element Löschen" />
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="View">
