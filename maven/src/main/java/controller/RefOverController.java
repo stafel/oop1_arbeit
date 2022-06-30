@@ -15,8 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseButton;
 import javafx.scene.control.TableRow;
+import javafx.event.ActionEvent;
 
-public class RefOverController{
+public class RefOverController extends BaseController{
     @FXML
     private TableView<IReference> refTable;
     @FXML
@@ -31,15 +32,15 @@ public class RefOverController{
 
     private ObservableList<IReference> observableReferences;
 
-    public void initialize(){
+    public RefOverController() {
+        super();
+    }
 
-        System.out.println(this.refTable);
+    public void initialize(){
 
         observableReferences = FXCollections.observableArrayList(
             new Reference("Test", new Source("GURPS"), new RuleDomain("Repairing"), "1 - 4")
         );
-
-        System.out.println(this.observableReferences);
         
         refName.setCellValueFactory(
             new PropertyValueFactory<IReference,String>("name")

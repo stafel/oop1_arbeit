@@ -16,10 +16,10 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Referenzverwaltung");
-        this.showMainView();
+        this.showReferenceOverviewView();
     }
 
-    public void showMainView() {
+    public void showReferenceOverviewView() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource("view/ReferenceOverviewView.fxml"));
