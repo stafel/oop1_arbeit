@@ -11,6 +11,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseButton;
+import javafx.scene.control.TableRow;
+
 public class RefOverController{
     @FXML
     private TableView<IReference> refTable;
@@ -35,9 +40,6 @@ public class RefOverController{
         );
 
         System.out.println(this.observableReferences);
-
-        //references.getColumns()
-
         
         refName.setCellValueFactory(
             new PropertyValueFactory<IReference,String>("name")
@@ -56,5 +58,19 @@ public class RefOverController{
         );
         
         refTable.setItems(observableReferences);
+
+        // detect double click on row and get row
+        refTable.setRowFactory(tv -> {
+            TableRow<IReference> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
+                     && event.getClickCount() == 2) {
+        
+                    IReference clickedRow = row.getItem();
+                    System.out.println(clickedRow.getName());
+                }
+            });
+            return row ;
+        });
     }
 }
