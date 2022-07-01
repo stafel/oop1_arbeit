@@ -12,6 +12,7 @@ import model.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
@@ -22,9 +23,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class RefDetailController extends BaseController {
-
-    private DataAccessObject dao;
-
     private IReference editReference;
 
     @FXML
@@ -42,6 +40,12 @@ public class RefDetailController extends BaseController {
     @FXML
     private TextField page;
 
+    @FXML
+    private Button btnDel;
+
+    @FXML
+    private Button btnApply;
+
     private ObservableList<String> availableBooks;
     private ObservableList<String> availableDomains;
 
@@ -57,8 +61,12 @@ public class RefDetailController extends BaseController {
     }
 
     public void setEditReference(IReference ref) {
+        //btnApply.setVisible(false); // hide apply button
         if (ref == null) {
             editFlag.setSelected(false);
+
+            // hide delete because there is nothing to delete yet
+            btnDel.setVisible(false);
         } else {
             editReference = ref;
             editFlag.setSelected(true);
@@ -74,7 +82,7 @@ public class RefDetailController extends BaseController {
         if (editFlag.isSelected()) {
             // we edit it the name can not change
         } else {
-            if (!dao.ReferenceNameValid(name.getText())) {
+            if (!DataAccessObject.getInstance().ReferenceNameValid(name.getText())) {
                 showError("Name existiert bereits.\nBitte anderen Namen wählen.");
                 return false;
             }
@@ -100,9 +108,9 @@ public class RefDetailController extends BaseController {
         }
 
         if (editFlag.isSelected()) {
-            dao.modifyReference(new Reference(name.getText(), dao.getSource(book.getValue()), dao.getDomain(domain.getValue()), page.getText()));
+            DataAccessObject.getInstance().modifyReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
         } else {
-            dao.createReference(new Reference(name.getText(), dao.getSource(book.getValue()), dao.getDomain(domain.getValue()), page.getText()));
+            DataAccessObject.getInstance().createReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
         }
 
         return true;
@@ -118,6 +126,14 @@ public class RefDetailController extends BaseController {
     @FXML
     void onApplyClicked(ActionEvent e) {
         saveData();
+    }
+
+    @FXML @Override
+    void onDeleteClicked(ActionEvent e) {
+        if (askDelete(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()))) 
+        {
+            ((Stage)name.getScene().getWindow()).close();
+        }
     }
 
     public void initialize(){
@@ -153,17 +169,14 @@ public class RefDetailController extends BaseController {
         );
         */
 
-        // initialize DAO
-        dao = DataAccessObject.getInstance();
-
         availableBooks = FXCollections.observableArrayList();
         availableDomains = FXCollections.observableArrayList();
         
-        for (ISource book : dao.getAvailableSources()) {
+        for (ISource book : DataAccessObject.getInstance().getAvailableSources()) {
             availableBooks.add(book.getName());
         }
 
-        for (IRuleDomain dom : dao.getAvailableDomains()) {
+        for (IRuleDomain dom : DataAccessObject.getInstance().getAvailableDomains()) {
             availableDomains.add(dom.getName());
         }
 

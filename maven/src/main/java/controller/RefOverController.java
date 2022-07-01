@@ -21,8 +21,6 @@ import javafx.scene.control.TableRow;
 import javafx.event.ActionEvent;
 
 public class RefOverController extends BaseController{
-    private DataAccessObject dao;
-
     @FXML
     private TableView<IReference> refTable;
     @FXML
@@ -48,12 +46,6 @@ public class RefOverController extends BaseController{
         showRefDetail(targetStage, null);
     }
 
-    private void askDelete(IReference ref) {
-        if (askYesNo("Eintrag '" + ref.getName() + "' wirklich löschen?") == true) {
-            dao.deleteReference(ref);
-        }
-    }
-
     @FXML
     @Override
     void onCreateClicked(ActionEvent e) {
@@ -74,10 +66,6 @@ public class RefOverController extends BaseController{
     }
 
     public void initialize(){
-
-        // initialize DAO
-        dao = DataAccessObject.getInstance();
-        
         refName.setCellValueFactory(
             new PropertyValueFactory<IReference,String>("name")
         );
@@ -94,7 +82,7 @@ public class RefOverController extends BaseController{
             new PropertyValueFactory<IReference,String>("page")
         );
         
-        refTable.setItems(dao.getAvailableReferences());
+        refTable.setItems(DataAccessObject.getInstance().getAvailableReferences());
 
         // detect double click on row and get row
         refTable.setRowFactory(tv -> {

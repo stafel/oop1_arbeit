@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.SubScene;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.DataAccessObject;
 import model.IReference;
 import javafx.event.ActionEvent;
 
@@ -73,6 +75,14 @@ public class BaseController {
         } else {
             return false;
         }
+    }
+
+    protected boolean askDelete(IReference ref) {
+        if (askYesNo("Eintrag '" + ref.getName() + "' wirklich löschen?") == true) {
+            DataAccessObject.getInstance().deleteReference(ref);
+            return true;
+        }
+        return false;
     }
 
     protected Stage generateSubstage(String title, boolean canResize) {

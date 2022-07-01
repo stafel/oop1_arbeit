@@ -42,4 +42,8 @@ public class Reference implements IReference {
         return "@" + referenceType + "\n{" + referenceIdentifier + ",\n" + getAttributesString() + "}\n";
     }
     
+    @Override
+    public String getName() {
+        return title;
+    }
 }

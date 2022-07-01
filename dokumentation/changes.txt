@@ -1,0 +1,15 @@
+09.05.2022: initial listview
+21.05.2022: proof of concept referenc strings for bibtex
+30.06.2022: listview changed to table for better overview and sorting
+views für übermich und detail erstellt
+dummy datenklasse erweitert
+01.07.2022: dummy datenklasse mit gettr und setter erweitert
+detailview zum erstellen gebaut mit einfacher datenprüfung
+
+dao mit observable lists erweitert
+editierdialog erstellt
+löschfunktion in dao eingefügt
+aboutMe angepasst auf v0.2 mit schnelltasten
+
+detailview in hauptview menuitem implementiert, hidden da noch keine vollständige funktionalität
+

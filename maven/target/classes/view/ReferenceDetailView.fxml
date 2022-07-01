@@ -37,9 +37,10 @@
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <CheckBox fx:id="editFlag" mnemonicParsing="false" text="CheckBox" visible="false" />
+            <CheckBox fx:id="editFlag" mnemonicParsing="false" prefHeight="18.0" prefWidth="1.0" text="CheckBox" visible="false" />
+            <Button fx:id="btnDel" mnemonicParsing="false" onAction="#onDeleteClicked" text="Delete" />
             <Button mnemonicParsing="false" onAction="#onBackClicked" text="Back" />
-            <Button mnemonicParsing="false" onAction="#onApplyClicked" text="Apply" />
+            <Button fx:id="btnApply" mnemonicParsing="false" onAction="#onApplyClicked" text="Apply" />
             <Button mnemonicParsing="false" onAction="#onOkClicked" text="OK" />
          </children>
       </HBox>
