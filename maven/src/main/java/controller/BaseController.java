@@ -11,6 +11,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -20,6 +21,9 @@ import javafx.event.ActionEvent;
 
 public class BaseController {
     // base controller implements reused buttons like aboutMe and exit
+
+    @FXML
+    private CheckMenuItem detailInMain;
 
     @FXML
     void onBackClicked(ActionEvent e) {
@@ -60,7 +64,7 @@ public class BaseController {
 
     protected boolean askYesNo(String question) {
         // simplified alert returns true if yes was chosen
-        
+
         Alert alrt = new Alert(AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alrt.showAndWait();
 
@@ -108,6 +112,14 @@ public class BaseController {
             targetStage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    protected Stage selectEditStage(Stage overviewStage, Stage substage){
+        if (detailInMain.isSelected()) {
+            return overviewStage;
+        } else {
+            return substage;
         }
     }
 }
