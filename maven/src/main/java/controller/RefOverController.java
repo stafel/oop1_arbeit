@@ -15,6 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.control.TableRow;
 import javafx.event.ActionEvent;
@@ -46,6 +47,12 @@ public class RefOverController extends BaseController{
         showRefDetail(generateSubstage("Neue Referenz", true), null);
     }
 
+    private void askDelete(IReference ref) {
+        if (askYesNo("Eintrag '" + ref.getName() + "' wirklich löschen?") == true) {
+            dao.deleteReference(ref);
+        }
+    }
+
     @FXML
     @Override
     void onCreateClicked(ActionEvent e) {
@@ -62,9 +69,7 @@ public class RefOverController extends BaseController{
     @Override
     void onDeleteClicked(ActionEvent e) {
         IReference refItm = refTable.getSelectionModel().getSelectedItem();
-        if (askYesNo("Eintrag '" + refItm.getName() + "' wirklich löschen?") == true) {
-            dao.deleteReference(refItm);
-        }
+        askDelete(refItm);
     }
 
     public void initialize(){
@@ -104,6 +109,21 @@ public class RefOverController extends BaseController{
                 }
             });
             return row ;
+        });
+
+        // key events must be done on table and not row because row does not get key events
+        refTable.setOnKeyPressed(event -> {
+            IReference selectedRef = refTable.getSelectionModel().getSelectedItem();
+            if (selectedRef != null) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    startEdit(selectedRef);
+                }
+                if (event.getCode() == KeyCode.DELETE) {
+                    askDelete(selectedRef);
+                }
+            } else {
+                startCreate();
+            }
         });
     }
 }

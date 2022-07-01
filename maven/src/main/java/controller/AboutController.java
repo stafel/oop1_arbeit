@@ -12,6 +12,19 @@ public class AboutController extends BaseController {
     }
 
     public void initialize(){
-        infotext.setText("Referenzverwaltung\nVersion: 0.1\nDatum: 30.06.2022\n\nAuthor: Rafael Stauffer");
+
+        String textdump = """
+                Referenzverwaltung
+                Version: 0.2
+                Datum: 01.07.2022
+                Author: Rafael Stauffer
+
+
+                Schnell-Editiertasten:
+                Enter: Bearbeiten des gewählten elements
+                Del: Löschen des gewählten elements
+                """;
+
+        infotext.setText(textdump);
     }
 }
