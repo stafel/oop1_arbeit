@@ -1,6 +1,7 @@
 package controller;
 
 import model.DataAccessObject;
+import model.IReference;
 import model.IRuleDomain;
 import model.ISource;
 import model.RuleDomain;
@@ -11,6 +12,7 @@ import model.Reference;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -22,6 +24,11 @@ import javafx.event.ActionEvent;
 public class RefDetailController extends BaseController {
 
     private DataAccessObject dao;
+
+    private IReference editReference;
+
+    @FXML
+    private CheckBox editFlag;
 
     @FXML
     private TextField name;
@@ -42,12 +49,36 @@ public class RefDetailController extends BaseController {
         super();
     }
 
-    private boolean checkInputData() {
-        if (!dao.ReferenceNameValid(name.getText())) {
-            showError("Name existiert bereits.\nBitte anderen Namen wählen.");
-            return false;
+    private void setFieldsFromEditRef() {
+        name.setText(editReference.getName());
+        book.setValue(editReference.getSource());
+        domain.setValue(editReference.getDomain());
+        page.setText(editReference.getPage());
+    }
+
+    public void setEditReference(IReference ref) {
+        if (ref == null) {
+            editFlag.setSelected(false);
+        } else {
+            editReference = ref;
+            editFlag.setSelected(true);
+            setFieldsFromEditRef();
+
+            // disable editing of the name because this is our primary key
+            name.setEditable(false);
+            name.setDisable(true);
         }
-        System.out.println(book.getValue());
+    }
+
+    private boolean checkInputData() {
+        if (editFlag.isSelected()) {
+            // we edit it the name can not change
+        } else {
+            if (!dao.ReferenceNameValid(name.getText())) {
+                showError("Name existiert bereits.\nBitte anderen Namen wählen.");
+                return false;
+            }
+        }
         if (book.getValue() == null) {
             showError("Buchreferenz benötigt.");
             return false;
@@ -68,7 +99,11 @@ public class RefDetailController extends BaseController {
             return false;
         }
 
-        dao.createReference(new Reference(name.getText(), dao.getSource(book.getValue()), dao.getDomain(domain.getValue()), page.getText()));
+        if (editFlag.isSelected()) {
+            dao.modifyReference(new Reference(name.getText(), dao.getSource(book.getValue()), dao.getDomain(domain.getValue()), page.getText()));
+        } else {
+            dao.createReference(new Reference(name.getText(), dao.getSource(book.getValue()), dao.getDomain(domain.getValue()), page.getText()));
+        }
 
         return true;
     }
@@ -86,7 +121,7 @@ public class RefDetailController extends BaseController {
     }
 
     public void initialize(){
-        /* 
+        /* // converter fails?
         // converter to convert objects into string representations
         book.setConverter(
             new StringConverter<ISource>() {

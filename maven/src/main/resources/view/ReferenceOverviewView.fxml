@@ -37,12 +37,12 @@
           </Menu>
         </menus>
       </MenuBar>
-      <TableView fx:id="refTable" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="refTable" prefHeight="374.0" prefWidth="600.0">
         <columns>
-          <TableColumn fx:id="refName" prefWidth="75.0" text="Name" />
-          <TableColumn fx:id="refBook" prefWidth="75.0" text="Buch" />
-            <TableColumn fx:id="refDomain" prefWidth="94.4000244140625" text="Regelbereich" />
-            <TableColumn fx:id="refPage" prefWidth="75.199951171875" text="Seite" />
+          <TableColumn fx:id="refName" prefWidth="151.2000732421875" text="Name" />
+          <TableColumn fx:id="refBook" prefWidth="168.79998779296875" text="Buch" />
+            <TableColumn fx:id="refDomain" prefWidth="157.60003662109375" text="Regelbereich" />
+            <TableColumn fx:id="refPage" prefWidth="123.199951171875" text="Seite" />
         </columns>
       </TableView>
    </children>

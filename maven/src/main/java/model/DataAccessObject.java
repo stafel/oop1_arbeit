@@ -2,13 +2,17 @@ package model;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /* Singleton acts as an abstraction layer between the controller and data handling.
 because at this stage of development I am unsure if a serialization into files sufices or a db access is needed */
 public class DataAccessObject {
     // this basic DAO only supplies placeholders and has no backend, ideal for testing
     ArrayList<ISource> sources;
     ArrayList<IRuleDomain> domains;
-    ArrayList<IReference> references;
+    //ArrayList<IReference> references;
+    ObservableList<IReference> references;
 
     private static DataAccessObject bridge;
 
@@ -25,7 +29,7 @@ public class DataAccessObject {
         domains.add(new RuleDomain("Travel"));
         domains.add(new RuleDomain("Character creation"));
 
-        references = new ArrayList<IReference>();
+        references = FXCollections.observableArrayList(); //new ArrayList<IReference>();
         references.add(new Reference("Basic character creation", sources.get(0), domains.get(3), "24 - 28"));
         references.add(new Reference("Optional modifications", sources.get(0), domains.get(3), "118"));
         references.add(new Reference("Overland speed", sources.get(3), domains.get(2), "30 ff."));
@@ -46,7 +50,7 @@ public class DataAccessObject {
         return domains;
     }
 
-    public ArrayList<IReference> getAvailableReferences() {
+    public ObservableList<IReference> getAvailableReferences() {
         return references;
     }
 
@@ -66,6 +70,28 @@ public class DataAccessObject {
             references.add(ref);
             return true;
         }
+    }
+
+    public boolean modifyReference(IReference ref) {
+        for (IReference originalRef : references) {
+            if (originalRef.getName().equals(ref.getName())) {
+                references.remove(originalRef);
+                references.add(ref);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteReference(IReference ref) {
+        // for consistency: while it only uses the name as a primary key for deletion the delete method takes the same IReference input as the create and modify
+        for (IReference originalRef : references) {
+            if (originalRef.getName().equals(ref.getName())) {
+                references.remove(originalRef);
+                return true;
+            }
+        }
+        return false;
     }
 
     public ISource getSource(String name) {

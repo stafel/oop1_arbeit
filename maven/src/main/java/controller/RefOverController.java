@@ -20,6 +20,8 @@ import javafx.scene.control.TableRow;
 import javafx.event.ActionEvent;
 
 public class RefOverController extends BaseController{
+    private DataAccessObject dao;
+
     @FXML
     private TableView<IReference> refTable;
     @FXML
@@ -31,30 +33,44 @@ public class RefOverController extends BaseController{
     @FXML
     private TableColumn<IReference,String> refPage;
 
-
-    private ObservableList<IReference> observableReferences;
-
     public RefOverController() {
         super();
+    }
+
+    private void startEdit(IReference ref) {
+        showRefDetail(generateSubstage("Editiere Referenz", true), ref);
+    }
+
+    private void startCreate() {
+        //showRefDetail((Stage)refTable.getScene().getWindow());
+        showRefDetail(generateSubstage("Neue Referenz", true), null);
     }
 
     @FXML
     @Override
     void onCreateClicked(ActionEvent e) {
-        //showRefDetail((Stage)refTable.getScene().getWindow());
-        showRefDetail(generateSubstage("Neue Referenz", true));
+        startCreate();
+    }
+
+    @FXML
+    @Override
+    void onEditClicked(ActionEvent e) {
+        startEdit(refTable.getSelectionModel().getSelectedItem());
+    }
+
+    @FXML
+    @Override
+    void onDeleteClicked(ActionEvent e) {
+        IReference refItm = refTable.getSelectionModel().getSelectedItem();
+        if (askYesNo("Eintrag '" + refItm.getName() + "' wirklich löschen?") == true) {
+            dao.deleteReference(refItm);
+        }
     }
 
     public void initialize(){
 
         // initialize DAO
-        DataAccessObject dao = DataAccessObject.getInstance();
-
-        observableReferences = FXCollections.observableArrayList();
-
-        for (IReference ref : dao.getAvailableReferences()) {
-            observableReferences.add(ref);
-        }
+        dao = DataAccessObject.getInstance();
         
         refName.setCellValueFactory(
             new PropertyValueFactory<IReference,String>("name")
@@ -72,17 +88,19 @@ public class RefOverController extends BaseController{
             new PropertyValueFactory<IReference,String>("page")
         );
         
-        refTable.setItems(observableReferences);
+        refTable.setItems(dao.getAvailableReferences());
 
         // detect double click on row and get row
         refTable.setRowFactory(tv -> {
             TableRow<IReference> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                if (! row.isEmpty() && event.getButton()==MouseButton.PRIMARY 
-                     && event.getClickCount() == 2) {
-        
-                    IReference clickedRow = row.getItem();
-                    System.out.println(clickedRow.getName());
+                if (event.getButton()==MouseButton.PRIMARY && event.getClickCount() == 2) {
+                    if (! row.isEmpty()) {
+                        IReference clickedRef = row.getItem();
+                        startEdit(clickedRef);
+                    } else {
+                        startCreate();
+                    }
                 }
             });
             return row ;
