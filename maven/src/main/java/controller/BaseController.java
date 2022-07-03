@@ -108,6 +108,10 @@ public class BaseController {
     }
 
     protected boolean askDelete(ISource src) {
+        if (DataAccessObject.getInstance().getReferencesForSource(src).size() > 0) {
+            showError("Buch wird referenziert. Zuerst Referenzen löschen.");
+            return false;
+        }
         if (askYesNo("Eintrag '" + src.getName() + "' wirklich löschen?") == true) {
             DataAccessObject.getInstance().deleteSource(src);
             return true;

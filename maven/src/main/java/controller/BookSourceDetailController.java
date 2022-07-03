@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
+import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
@@ -67,6 +68,7 @@ public class BookSourceDetailController extends BaseController {
         year.setValue(editSource.getPublishDate());
 
         btnDel.setVisible(true);
+        name.setDisable(true);
     }
 
     private boolean checkInputData() {
@@ -77,12 +79,23 @@ public class BookSourceDetailController extends BaseController {
         return true;
     }
 
+    private SourceBook getSourceFromFields() {
+        return new SourceBook(name.getText(), description.getText(), author.getText(), year.getValue(), isbn.getText());
+    }
+
     private boolean saveData() {
         if (!checkInputData()) {
             return false;
         }
 
-        System.out.println("save not implemented");
+        SourceBook newSource = getSourceFromFields();
+
+        if (this.editSource == null) {
+            DataAccessObject.getInstance().createSource(newSource);
+        } else {
+            newSource.setName(editSource.getName());
+            DataAccessObject.getInstance().modifySource(newSource);
+        }
 
         return true;
     }
@@ -101,7 +114,7 @@ public class BookSourceDetailController extends BaseController {
 
     @FXML @Override
     void onDeleteClicked(ActionEvent e) {
-        if (askDelete((ISource)new SourceBook(name.getText(), "", "", LocalDate.of(2016, 1, 1), ""))) 
+        if (askDelete(getSourceFromFields())) 
         {
             ((Stage)name.getScene().getWindow()).close();
         }

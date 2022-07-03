@@ -18,12 +18,12 @@ public class DataAccessObject {
 
     private DataAccessObject() {
         sources = FXCollections.observableArrayList(); //new ArrayList<ISource>();
-        sources.add(new SourceBook("GURPS Basic Set Characters", "Character creation rules for GURPS. 4th edition 6th printing SJG04995", "Steve Jackson, Sean Punch, David Pulver", LocalDate.of(2016, 1, 1), "978-1-55634-729-0"));
-        sources.add(new SourceBook("GURPS Basic Set Campaigns", "Mechanics and Gamemaster tips for GURPS. 4th edition 6th printing SJG03495", "Steve Jackson, Sean Punch, David Pulver", LocalDate.of(2016, 1, 1), "978-1-55634-730-6"));
-        sources.add(new SourceBook("GURPS Magic", "Basic magic system for GURPS 3rd edition 4th printing", "Steve Jackson, John Ross, Daniel Thibault", LocalDate.of(2016, 1, 1), "978-1-55634-811-2"));
+        sources.add(new SourceBook("GURPS Basic Set Characters", "Character creation rules for GURPS.\n 4th edition 6th printing SJG04995", "Steve Jackson, Sean Punch, David Pulver", LocalDate.of(2016, 1, 1), "978-1-55634-729-0"));
+        sources.add(new SourceBook("GURPS Basic Set Campaigns", "Mechanics and Gamemaster tips for GURPS.\n 4th edition 6th printing SJG03495", "Steve Jackson, Sean Punch, David Pulver", LocalDate.of(2016, 1, 1), "978-1-55634-730-6"));
+        sources.add(new SourceBook("GURPS Magic", "Basic magic system for GURPS.\n 3rd edition 4th printing", "Steve Jackson, John Ross, Daniel Thibault", LocalDate.of(2016, 1, 1), "978-1-55634-811-2"));
         sources.add(new SourceBook("GURPS Martial Arts", "Indepth Melee combat mechanics, weapons and history", "Peter Dell'Orto, Sean Punch", LocalDate.of(2017, 1, 1), "9781556348211"));
         sources.add(new SourceBook("GURPS Thaumatology", "Alternative Magic systems", "Phil Masters", LocalDate.of(2016, 1, 1), "978-1-55634-809-9"));
-        sources.add(new SourceBook("GURPS High Tech", "More Ranged combat mechanics. History and technology from 1500+", "S. A. Fisher, Michael Hurst, Hans-Christian Vortisch", LocalDate.of(2017, 1, 1), "978-1-55634-812-9"));
+        sources.add(new SourceBook("GURPS High Tech", "History and technology from 1500+.\nMore Ranged combat mechanics.", "S. A. Fisher, Michael Hurst, Hans-Christian Vortisch", LocalDate.of(2017, 1, 1), "978-1-55634-812-9"));
         
         
         domains = FXCollections.observableArrayList();
@@ -156,10 +156,25 @@ public class DataAccessObject {
         // for consistency: while it only uses the name as a primary key for deletion the delete method takes the same IReference input as the create and modify
         for (ISource originalSource : sources) {
             if (originalSource.getName().equals(src.getName())) {
+
+                if (getReferencesForSource(src).size() > 0) {
+                    return false;
+                }            
+
                 sources.remove(originalSource);
                 return true;
             }
         }
         return false;
+    }
+
+    public ObservableList<IReference> getReferencesForSource(ISource src) {
+        ObservableList<IReference> linkedReferences = FXCollections.observableArrayList();
+        for (IReference ref : references) {
+            if (ref.getSource().equals(src.getName())) { // check for names to allow weak binding later
+                linkedReferences.add(ref);
+            }
+        }
+        return linkedReferences;
     }
 }
