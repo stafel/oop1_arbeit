@@ -1,0 +1,43 @@
+\documentclass[a4paper]{scrreprt}
+
+\usepackage[german]{babel}
+\usepackage{fancyhdr}
+\usepackage{LastPage}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{pgfplotstable}
+
+\title{OOP1 Dokumentation}
+\subtitle{Referenzverwaltung}
+\date{\today{}}
+\author{Rafael Stauffer}
+
+\DeclareRobustCommand{\filename}{
+Stauffer Rafael OOP1 Dokumentation.pdf
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lfoot{\filename}
+\rfoot{Seite \thepage\phantom{x}von \pageref{LastPage}}
+
+\begin{document}
+\maketitle{\thispagestyle{fancy}}
+\tableofcontents{\thispagestyle{fancy}}
+\newpage
+\section{Versionierung}
+\begin{table}[h!]
+\begin{center}
+\pgfplotstabletypeset[col sep=comma,
+display columns/0/.style={column name=$Datum$,string type,column type/.add={|}{|}},
+display columns/1/.style={column name=$Name$,string type},
+display columns/2/.style={column name=$Beschreibung$,string type,column type/.add={|}{|}},
+every head row/.style={before row={\toprule},after row={\midrule},},
+every last row/.style={after row=\bottomrule},]{versionierung.csv}
+\end{center}
+\end{table}
+\section{Funktionen}
+\input{Funktion01}
+\input{Funktion02}
+
+\end{document}

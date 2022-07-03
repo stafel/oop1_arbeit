@@ -1,0 +1,34 @@
+\subsection[Funktion 2 JavaFX GUI]{Funktion 2 JavaFX als grafische Oberfläche eingesetzt mit mindestens 2 Views}
+
+\subsubsection{Anforderung}
+
+Der Szenarienbeschrieb beinhaltet drei Paare mit je einem Übersichts- und einem Detail-Screen im Total sechs Views.
+
+\subsubsection{Design}
+
+Für die Übersichts-Screens wurden ListViews geplant um eine einfache Ansicht in einem minimalistischen Design bereitzustellen mit Änderungs und Löschfunktionen direkt auf der Zeile.
+Die Detail-Screens wurden als Erstellungs- und Bearbeitungs-Screen geplant welche je nach Aufruf Nodes ein- oder ausblenden aufgebaut auf VBox/HBox und Textboxen. Es wurde noch nicht festgelegt ob die Detail-Screens in einem neuen Fenster/Stage erscheinen oder die aktuelle Stage übernehmen sollten.
+
+\subsubsection{Entwicklung}
+Beim der Entwicklung des Referenz-Screen-Paars wurde klar, dass:
+\begin{itemize}
+	\item die ListView zu unflexibel ist für die verschiedenen Business-Objekte: TableViews stattdessen verwendet
+	\item VBox/HBox-Verschachtelungen die Detail-Screens nur bedingt darstellen können: GridPanes wurden stattdessen verwendet
+	\item die Stage übernahme des Detail-Screens vom Übersichtscreens die komplexität erhöht ohne grosse Vorteile: Detail-Views starten somit in eigener Stage
+	\item die Views immer etwa gleich aufgebaut sind: eine BaseController-Klasse wurde eingeführt
+	\item SubViews die Komplexität massiv erhöhen: keine SubScreens verwendet
+\end{itemize}
+Obwohl weitere Entkoppelungen der Nodes besonders im Overview-Screen möglich sind wurden diese wegen Zeitdruck nicht umgesetzt.
+
+\subsubsection{Test}
+\begin{itemize}
+	\item Starten und Beenden der Views in eigenen Stages.
+	\item Starten und Beenden der Views in Parent Stage.
+	\item Parameterübergabe zwischen Controller.
+	\item Aufruf von Events.
+	\item Verändern von View-Feldern.
+	\item Vererbung von Event und Feldverknüpfungen
+\end{itemize}
+
+\subsubsection{Fazit}
+Die Arbeit mit FXML war besonders ermüdend, da kaum Debugginginformationen weitergereicht wurden.

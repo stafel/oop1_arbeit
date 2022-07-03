@@ -1,0 +1,29 @@
+09.05.2022: initial listview
+21.05.2022: proof of concept referenc strings for bibtex
+30.06.2022: listview changed to table for better overview and sorting
+views für übermich und detail erstellt
+dummy datenklasse erweitert
+01.07.2022: dummy datenklasse mit gettr und setter erweitert
+detailview zum erstellen gebaut mit einfacher datenprüfung
+
+dao mit observable lists erweitert
+editierdialog erstellt
+löschfunktion in dao eingefügt
+aboutMe angepasst auf v0.2 mit schnelltasten
+
+detailview in hauptview menuitem implementiert, hidden da noch keine vollständige funktionalität
+
+detailview delete button (refactoring askDelete nach base), applybutton hide eingefügt aber kein autocollapse von vbox
+
+02.07.2022: uml klassendiagram erstellt
+
+03.07.2022: detailview zu büchersourcen und Bereich erstellt
+übersicht zu bücher erstellt, crud in doa zu bücher erstellt, anzeige von scenen in basecontroller refaktoriert
+erscheinungsjahr source methoden get und set localdate, year intern zu publish date geändert
+
+regelbereich detailview verbunden, bugfix listView update bei modify
+
+isbn check added, throws exceptions, fixed with regex
+
+website sourcen hinzugefügt, Bücher zu sourcen umbenannt
+

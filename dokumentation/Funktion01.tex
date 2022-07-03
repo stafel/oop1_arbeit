@@ -1,0 +1,28 @@
+\subsection[Funktion1 Objektklassen]{Funktion 1 Im Minimum eine Objekt Klasse erstellt.}
+
+\subsubsection{Anforderung}
+In der Konzept-Phase beim Szenarienbeschrieb wurden drei Business-Object-Klassen identifiziert:
+\begin{itemize}
+	\item Buch
+	\item Referenz
+	\item Regelbereich
+\end{itemize}
+
+\subsubsection{Design}
+Durch das Proof of Concept für die BibTex-Dokumente wurden die Business-Object-Klassen mit der unterscheidung von Buch und Website auf vier erweitert.\\
+Ein weiteres normalisieren der Daten auf Author wurde wegen dem Projektumfang verworfen. Interfaces zu den in der Anforderung definierten Objekten wurden für die zukünftige Flexibilität miteinbezogen. Sämtliche Attribute wurden zur Einfachheit als Strings festgelegt.
+\begin{itemize}
+	\item BuchSource
+	\item WebsitenSource
+	\item Referenz
+	\item Regelbereich
+\end{itemize}
+
+\subsubsection{Entwicklung}
+Umsetzung wie nach Design. Erste Version nur Referenz mit Source und Regelbereich als Dummy-Objekt zum Testen bevor die Vollständige funktionalität umgesetzt wurde. Nach dem ersten Prototypen wurden Einschränkungen der 'jedes Attribut ein String' Methodik sichtbar. Zur besseren Überprüfung der Eingaben und Zukunftsicherheit wurde das Erscheinungsjahr/LetzterAufruf-Feld als LocalDate definiert welches einfacher dem DatePicker übergeben werden kann. Website wurde als URL definiert was kurzzeitig für Probleme bei der Übergabe an die View gesorgt hat aber ungültige URLs automatisch erkennt. Ursprünglich wurde eine Persistenz der Daten eingeplant aber wegen dem Projektumfang verworfen und stattdessen das DataAccessObject-Pattern eingebaut um diese zukünftig nachzuliefern.
+
+\subsubsection{Test}
+Zusammen mit Funktion 3 getestet. Alle Objekte wurden wiederholt erstellt, geändert und gelöscht. 
+
+\subsubsection{Fazit}
+Die Vererbung und Interfaces könnten eleganter gelöst sein. Der bisherige Aufbau stellt ein Kompromiss zwischen Aufwand/Projektumfang und Erweiterbarkeit dar.
