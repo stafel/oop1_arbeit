@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SourceOverviewController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onExitClicked" text="Exit" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#onCreateClicked" text="Neues Element Erstellen" />
+                  <MenuItem mnemonicParsing="false" onAction="#onEditClicked" text="Ausgewähltes Element Bearbeiten" />
+                  <MenuItem mnemonicParsing="false" onAction="#onDeleteClicked" text="Ausgewähltes Element Löschen" />
+              </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="View">
+              <items>
+                  <MenuItem fx:id="menuRef" mnemonicParsing="false" onAction="#onChangeRefView" text="Referenzen" />
+                <MenuItem fx:id="menuDomain" mnemonicParsing="false" onAction="#onChangeDomainView" text="Regelkategorien" />
+                  <MenuItem fx:id="menuSource" mnemonicParsing="false" onAction="#onChangeSourceView" text="Bücher" />
+                  <CheckMenuItem fx:id="detailInMain" mnemonicParsing="false" text="Detailview in Hauptfenster öffnen" visible="false" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" onAction="#onAboutMeClicked" text="Über Mich" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <TableView fx:id="sourceTable" prefHeight="374.0" prefWidth="600.0">
+        <columns>
+          <TableColumn fx:id="srcName" prefWidth="151.2000732421875" text="Name" />
+          <TableColumn fx:id="srcAuthor" prefWidth="168.79998779296875" text="Author" />
+            <TableColumn fx:id="srcYear" prefWidth="157.60003662109375" text="Jahr" />
+        </columns>
+      </TableView>
+   </children>
+</VBox>

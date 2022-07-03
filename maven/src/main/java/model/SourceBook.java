@@ -1,5 +1,7 @@
 package model;
 
+import java.time.LocalDate;
+
 public class SourceBook extends Source {
 
     private String isbn;
@@ -12,8 +14,8 @@ public class SourceBook extends Source {
         this.isbn = isbn;
     }
 
-    public SourceBook(String name, String description, String author, String year, String isbn) {
-        super(name, description, author, year);
+    public SourceBook(String name, String description, String author, LocalDate publishDate, String isbn) {
+        super(name, description, author, publishDate);
         this.isbn = isbn;
     }
     

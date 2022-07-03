@@ -163,8 +163,10 @@ public class BaseController {
             Scene scene = new Scene(loader.load());
             targetStage.setScene(scene);
 
-            BookSourceDetailController ctrl = loader.getController();
-            ctrl.setEditSource(src);
+            if (src != null) {
+                BookSourceDetailController ctrl = loader.getController();
+                ctrl.setEditSource(src);
+            }
 
             targetStage.show();
         } catch (IOException e) {

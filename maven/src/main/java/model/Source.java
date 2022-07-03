@@ -1,19 +1,31 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+import javax.swing.text.DateFormatter;
 
 public class Source implements ISource, Serializable {
     private String name;
     private String description;
     private String author;
-    private String year;
+    private LocalDate publishDate;
 
     public String getYear() {
-        return year;
+        return Integer.toString(publishDate.getYear());
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.publishDate = LocalDate.of(Integer.parseInt(year), 1, 1);
+    }
+
+    public void setPublishDate(LocalDate date) {
+        this.publishDate = date;
+    }
+
+    public LocalDate getPublishDate() {
+        return this.publishDate;
     }
 
     public String getDescription() {
@@ -28,11 +40,11 @@ public class Source implements ISource, Serializable {
         this.name = name;
     }
 
-    public Source(String name, String desctiption, String author, String year) {
+    public Source(String name, String desctiption, String author, LocalDate publishDate) {
         this.description = desctiption;
         this.name = name;
         this.author = author;
-        this.year = year;
+        this.publishDate = publishDate;
     }
 
     public String getName() {
@@ -50,7 +62,7 @@ public class Source implements ISource, Serializable {
     public boolean update(ISource updateData) {
         this.setDescription(updateData.getDescription());
         this.setAuthor(updateData.getAuthor());
-        this.setYear(updateData.getYear());
+        this.setPublishDate(updateData.getPublishDate());
         return true;
     }
 }
