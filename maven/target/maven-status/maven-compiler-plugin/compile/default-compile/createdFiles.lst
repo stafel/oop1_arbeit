@@ -1,5 +1,6 @@
 controller\AboutController.class
 MainApp.class
+ShadeMain.class
 controller\RefOverController.class
 model\Source.class
 model\IRuleDomain.class

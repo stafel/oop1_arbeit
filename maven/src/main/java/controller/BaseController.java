@@ -147,7 +147,7 @@ public class BaseController {
         substage.setResizable(false);
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BaseController.class.getResource("../view/AboutView.fxml"));
+            loader.setLocation(BaseController.class.getResource("/view/AboutView.fxml"));
 
             Scene scene = new Scene(loader.load());
             substage.setScene(scene);
@@ -160,7 +160,7 @@ public class BaseController {
     protected void showRefDetail(Stage targetStage, IReference ref) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BaseController.class.getResource("../view/ReferenceDetailView.fxml"));
+            loader.setLocation(BaseController.class.getResource("/view/ReferenceDetailView.fxml"));
 
             Scene scene = new Scene(loader.load());
             targetStage.setScene(scene);
@@ -178,10 +178,10 @@ public class BaseController {
         try {
             FXMLLoader loader = new FXMLLoader();
             if (src instanceof SourceBook) {
-                loader.setLocation(BaseController.class.getResource("../view/BookSourceDetailView.fxml"));
+                loader.setLocation(BaseController.class.getResource("/view/BookSourceDetailView.fxml"));
             }
             if (src instanceof SourceWeb) {
-                loader.setLocation(BaseController.class.getResource("../view/WebSourceDetailView.fxml"));
+                loader.setLocation(BaseController.class.getResource("/view/WebSourceDetailView.fxml"));
             }
 
             Scene scene = new Scene(loader.load());
@@ -208,7 +208,7 @@ public class BaseController {
     protected void showDomainDetail(Stage targetStage, IRuleDomain dom) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BaseController.class.getResource("../view/DomainDetailView.fxml"));
+            loader.setLocation(BaseController.class.getResource("/view/DomainDetailView.fxml"));
 
             Scene scene = new Scene(loader.load());
             targetStage.setScene(scene);
@@ -225,20 +225,24 @@ public class BaseController {
     }
 
     protected void showReferenceOverview(Stage targetStage) {
-        showSceneOnStage(targetStage, "Referenzen übersicht", "../view/ReferenceOverviewView.fxml");
+        showSceneOnStage(targetStage, "Referenzen übersicht", "/view/ReferenceOverviewView.fxml");
     }
 
     protected void showSourceOverview(Stage targetStage) {
-        showSceneOnStage(targetStage, "Bücher übersicht", "../view/SourceOverviewView.fxml");
+        showSceneOnStage(targetStage, "Sourcen übersicht", "/view/SourceOverviewView.fxml");
     }
 
     protected void showDomainOverview(Stage targetStage) {
-        showSceneOnStage(targetStage, "Bereich übersicht", "../view/DomainOverviewView.fxml");
+        showSceneOnStage(targetStage, "Bereich übersicht", "/view/DomainOverviewView.fxml");
     }
 
     private void showSceneOnStage(Stage targetStage, String title, String sceneURI) {
         try {
             FXMLLoader loader = new FXMLLoader();
+            System.out.println(sceneURI);
+            System.out.println(this.getClass().getResource(sceneURI));
+            System.out.println(BaseController.class.getResource(sceneURI));
+
             loader.setLocation(BaseController.class.getResource(sceneURI));
 
             Scene scene = new Scene(loader.load());

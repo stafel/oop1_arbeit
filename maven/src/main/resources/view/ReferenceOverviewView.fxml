@@ -28,7 +28,7 @@
                <items>
                   <MenuItem fx:id="menuRef" mnemonicParsing="false" onAction="#onChangeRefView" text="Referenzen" />
                   <MenuItem fx:id="menuDomain" mnemonicParsing="false" onAction="#onChangeDomainView" text="Regelkategorien" />
-                  <MenuItem fx:id="menuSource" mnemonicParsing="false" onAction="#onChangeSourceView" text="Bücher" />
+                  <MenuItem fx:id="menuSource" mnemonicParsing="false" onAction="#onChangeSourceView" text="Sourcen" />
                   <CheckMenuItem fx:id="detailInMain" mnemonicParsing="false" text="Detailview in Hauptfenster öffnen" visible="false" />
                </items>
             </Menu>

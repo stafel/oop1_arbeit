@@ -4,8 +4,12 @@
 
 ## Maven config
 
-Start with command
+Start with command:
 ```
 mvn clean javafx:run
 ```
-in the maven directory.
+
+You can also package it as a fat JAR with all dependencies with the command:
+```
+mvn clean compile package
+```
