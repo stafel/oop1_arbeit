@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.DataAccessObject;
 import model.IReference;
+import model.ISource;
 import javafx.event.ActionEvent;
 
 public class BaseController {
@@ -58,6 +59,27 @@ public class BaseController {
         System.out.println("not implemented yet");
     }
 
+    // view tab changes: references, domains and sources
+    @FXML
+    void onChangeRefView(ActionEvent e) {
+        showReferenceOverview(getCurrentStage());
+    }
+
+    @FXML
+    void onChangeDomainView(ActionEvent e) {
+        showDomainOverview(getCurrentStage());
+    }
+
+    @FXML
+    void onChangeSourceView(ActionEvent e) {
+        showSourceOverview(getCurrentStage());
+    }
+
+    protected Stage getCurrentStage() {
+        // can not reliably set the stage so instead of a protected attribute with getter and setter we will overwrite and return just in time
+        return null;
+    }
+
     protected void showError(String errorMsg) {
         Alert alrt = new Alert(AlertType.ERROR);
         alrt.setContentText(errorMsg);
@@ -80,6 +102,14 @@ public class BaseController {
     protected boolean askDelete(IReference ref) {
         if (askYesNo("Eintrag '" + ref.getName() + "' wirklich löschen?") == true) {
             DataAccessObject.getInstance().deleteReference(ref);
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean askDelete(ISource src) {
+        if (askYesNo("Eintrag '" + src.getName() + "' wirklich löschen?") == true) {
+            DataAccessObject.getInstance().deleteSource(src);
             return true;
         }
         return false;
@@ -119,6 +149,49 @@ public class BaseController {
             RefDetailController ctrl = loader.getController();
             ctrl.setEditReference(ref);
 
+            targetStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void showSourceDetail(Stage targetStage, ISource src) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BaseController.class.getResource("../view/BookSourceDetailView.fxml"));
+
+            Scene scene = new Scene(loader.load());
+            targetStage.setScene(scene);
+
+            BookSourceDetailController ctrl = loader.getController();
+            ctrl.setEditSource(src);
+
+            targetStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void showReferenceOverview(Stage targetStage) {
+        showSceneOnStage(targetStage, "Referenzen übersicht", "../view/ReferenceOverviewView.fxml");
+    }
+
+    protected void showSourceOverview(Stage targetStage) {
+        showSceneOnStage(targetStage, "Bücher übersicht", "../view/SourceOverviewView.fxml");
+    }
+
+    protected void showDomainOverview(Stage targetStage) {
+        showSceneOnStage(targetStage, "Bereich übersicht", "../view/DomainOverviewView.fxml");
+    }
+
+    private void showSceneOnStage(Stage targetStage, String title, String sceneURI) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BaseController.class.getResource(sceneURI));
+
+            Scene scene = new Scene(loader.load());
+            targetStage.setScene(scene);
+            targetStage.setTitle(title);
             targetStage.show();
         } catch (IOException e) {
             e.printStackTrace();

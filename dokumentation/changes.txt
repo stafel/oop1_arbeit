@@ -13,3 +13,9 @@ aboutMe angepasst auf v0.2 mit schnelltasten
 
 detailview in hauptview menuitem implementiert, hidden da noch keine vollständige funktionalität
 
+detailview delete button (refactoring askDelete nach base), applybutton hide eingefügt aber kein autocollapse von vbox
+
+02.07.2022: uml klassendiagram erstellt
+
+03.07.2022: detailview zu büchersourcen und Bereich erstellt
+übersicht zu bücher erstellt, crud in doa zu bücher erstellt, anzeige von scenen in basecontroller refaktoriert

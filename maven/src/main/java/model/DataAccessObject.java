@@ -9,21 +9,23 @@ import javafx.collections.ObservableList;
 because at this stage of development I am unsure if a serialization into files sufices or a db access is needed */
 public class DataAccessObject {
     // this basic DAO only supplies placeholders and has no backend, ideal for testing
-    ArrayList<ISource> sources;
-    ArrayList<IRuleDomain> domains;
-    //ArrayList<IReference> references;
+    ObservableList<IRuleDomain> domains;
     ObservableList<IReference> references;
+    ObservableList<ISource> sources;
 
     private static DataAccessObject bridge;
 
     private DataAccessObject() {
-        sources = new ArrayList<ISource>();
-        sources.add(new Source("GURPS"));
-        sources.add(new Source("Dungeons and Dragons"));
-        sources.add(new Source("Shadowrun"));
-        sources.add(new Source("Shadow of the Demon Lord"));
+        sources = FXCollections.observableArrayList(); //new ArrayList<ISource>();
+        sources.add(new SourceBook("GURPS Basic Set Characters", "Character creation rules for GURPS. 4th edition 6th printing SJG04995", "Steve Jackson, Sean Punch, David Pulver", "2016", "978-1-55634-729-0"));
+        sources.add(new SourceBook("GURPS Basic Set Campaigns", "Mechanics and Gamemaster tips for GURPS. 4th edition 6th printing SJG03495", "Steve Jackson, Sean Punch, David Pulver", "2016", "978-1-55634-730-6"));
+        sources.add(new SourceBook("GURPS Magic", "Basic magic system for GURPS 3rd edition 4th printing", "Steve Jackson, John Ross, Daniel Thibault", "2016", "978-1-55634-811-2"));
+        sources.add(new SourceBook("GURPS Martial Arts", "Indepth Melee combat mechanics, weapons and history", "Peter Dell'Orto, Sean Punch", "2017", "9781556348211"));
+        sources.add(new SourceBook("GURPS Thaumatology", "Alternative Magic systems", "Phil Masters", "2016", "978-1-55634-809-9"));
+        sources.add(new SourceBook("GURPS High Tech", "More Ranged combat mechanics. History and technology from 1500+", "S. A. Fisher, Michael Hurst, Hans-Christian Vortisch", "2017", "978-1-55634-812-9"));
         
-        domains = new ArrayList<IRuleDomain>();
+        
+        domains = FXCollections.observableArrayList();
         domains.add(new RuleDomain("Social"));
         domains.add(new RuleDomain("Fight"));
         domains.add(new RuleDomain("Travel"));
@@ -42,11 +44,11 @@ public class DataAccessObject {
         return bridge;
     }
 
-    public ArrayList<ISource> getAvailableSources() {
+    public ObservableList<ISource> getAvailableSources() {
         return sources;
     }
 
-    public ArrayList<IRuleDomain> getAvailableDomains() {
+    public ObservableList<IRuleDomain> getAvailableDomains() {
         return domains;
     }
 
@@ -54,7 +56,7 @@ public class DataAccessObject {
         return references;
     }
 
-    public boolean ReferenceNameValid(String name) {
+    public boolean referenceNameValid(String name) {
         for (IReference ref : references) {
             if (ref.getName().equals(name)) {
                 return false;
@@ -64,7 +66,7 @@ public class DataAccessObject {
     }
 
     public boolean createReference(IReference ref) {
-        if (!ReferenceNameValid(ref.getName())) {
+        if (!referenceNameValid(ref.getName())) {
             return false;
         } else {
             references.add(ref);
@@ -119,5 +121,44 @@ public class DataAccessObject {
             }
         }
         return null;
+    }
+
+    public boolean sourceNameValid(String name) {
+        for (ISource src : sources) {
+            if (src.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean createSource(ISource src) {
+        if (!referenceNameValid(src.getName())) {
+            return false;
+        } else {
+            sources.add(src);
+            return true;
+        }
+    }
+
+    public boolean modifySource(ISource src) {
+        for (ISource originalSource : sources) {
+            if (originalSource.getName().equals(src.getName())) {
+                originalSource.update(src);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteSource(ISource src) {
+        // for consistency: while it only uses the name as a primary key for deletion the delete method takes the same IReference input as the create and modify
+        for (ISource originalSource : sources) {
+            if (originalSource.getName().equals(src.getName())) {
+                sources.remove(originalSource);
+                return true;
+            }
+        }
+        return false;
     }
 }

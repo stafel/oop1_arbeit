@@ -3,9 +3,11 @@ model\IReference.class
 controller\AboutController.class
 MainApp.class
 controller\RefOverController.class
+controller\SourceOverviewController.class
 model\Source.class
 model\ISource.class
 model\IRuleDomain.class
+controller\BookSourceDetailController.class
 model\DataAccessObject.class
 model\SourceBook.class
 controller\RefDetailController.class

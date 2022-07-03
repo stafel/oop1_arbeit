@@ -82,7 +82,7 @@ public class RefDetailController extends BaseController {
         if (editFlag.isSelected()) {
             // we edit it the name can not change
         } else {
-            if (!DataAccessObject.getInstance().ReferenceNameValid(name.getText())) {
+            if (!DataAccessObject.getInstance().referenceNameValid(name.getText())) {
                 showError("Name existiert bereits.\nBitte anderen Namen wählen.");
                 return false;
             }

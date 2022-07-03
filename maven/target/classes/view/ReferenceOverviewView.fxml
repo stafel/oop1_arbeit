@@ -25,12 +25,12 @@
               </items>
             </Menu>
             <Menu mnemonicParsing="false" text="View">
-              <items>
-                  <MenuItem mnemonicParsing="false" text="Referenzen" />
-                <MenuItem mnemonicParsing="false" text="Regelkategorien" />
-                  <MenuItem mnemonicParsing="false" text="Bücher" />
-                  <CheckMenuItem fx:id="detailInMain" mnemonicParsing="false" text="Detailview in Hauptfenster öffnen" visible="false" />
-              </items>
+               <items>
+                  <MenuItem fx:id="menuRef" mnemonicParsing="false" onAction="#onChangeRefView" text="Referenzen" />
+                  <MenuItem fx:id="menuDomain" mnemonicParsing="false" onAction="#onChangeDomainView" text="Regelkategorien" />
+                  <MenuItem fx:id="menuSource" mnemonicParsing="false" onAction="#onChangeSourceView" text="Bücher" />
+                  <CheckMenuItem fx:id="detailInMain1" mnemonicParsing="false" text="Detailview in Hauptfenster öffnen" visible="false" />
+               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>

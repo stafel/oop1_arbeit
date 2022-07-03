@@ -37,12 +37,12 @@ public class RefOverController extends BaseController{
     }
 
     private void startEdit(IReference ref) {
-        Stage targetStage = selectEditStage((Stage)refTable.getScene().getWindow(), generateSubstage("Editiere Referenz", true));
+        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage("Editiere Referenz", true));
         showRefDetail(targetStage, ref);
     }
 
     private void startCreate() {
-        Stage targetStage = selectEditStage((Stage)refTable.getScene().getWindow(), generateSubstage("Neue Referenz", true));
+        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage("Neue Referenz", true));
         showRefDetail(targetStage, null);
     }
 
@@ -63,6 +63,11 @@ public class RefOverController extends BaseController{
     void onDeleteClicked(ActionEvent e) {
         IReference refItm = refTable.getSelectionModel().getSelectedItem();
         askDelete(refItm);
+    }
+
+    @Override
+    protected Stage getCurrentStage() {
+        return (Stage)refTable.getScene().getWindow();
     }
 
     public void initialize(){
