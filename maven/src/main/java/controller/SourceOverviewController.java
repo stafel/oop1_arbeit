@@ -5,7 +5,11 @@ import model.IReference;
 import model.ISource;
 import model.Reference;
 import model.Source;
+import model.SourceBook;
+import model.SourceWeb;
 import model.RuleDomain;
+
+import java.time.LocalDate;
 
 import javax.print.attribute.standard.MediaSize.ISO;
 
@@ -40,20 +44,37 @@ public class SourceOverviewController extends BaseController{
         super();
     }
 
+    private String getTitleForSource(ISource src) {
+        if (src instanceof SourceBook) {
+            return "Buchsource";
+        }
+        if (src instanceof SourceWeb) {
+            return "Websource";
+        }
+        return "???";
+    }
+
     private void startEdit(ISource src) {
-        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage("Editiere Buch", true));
+        String stageTitle = "Editiere " + getTitleForSource(src);
+        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage(stageTitle, true));
         showSourceDetail(targetStage, src);
     }
 
-    private void startCreate() {
-        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage("Neues Buch", true));
-        showSourceDetail(targetStage, null);
+    private void startCreate(ISource src) {
+        String stageTitle = "Neue  " + getTitleForSource(src);
+        Stage targetStage = selectEditStage(getCurrentStage(), generateSubstage(stageTitle, true));
+        showSourceDetail(targetStage, src);
     }
 
     @FXML
     @Override
     void onCreateClicked(ActionEvent e) {
-        startCreate();
+        startCreate(new SourceBook());
+    }
+
+    @FXML
+    void onCreateWebClicked(ActionEvent e) {
+        startCreate(new SourceWeb());
     }
 
     @FXML
@@ -103,7 +124,7 @@ public class SourceOverviewController extends BaseController{
                         ISource clickedSource = row.getItem();
                         startEdit(clickedSource);
                     } else {
-                        startCreate();
+                        startCreate(new SourceBook("", "", "", LocalDate.now(), ""));
                     }
                 }
             });
@@ -121,7 +142,7 @@ public class SourceOverviewController extends BaseController{
                     askDelete(selectedSrc);
                 }
             } else {
-                startCreate();
+                startCreate(new SourceBook());
             }
         });
     }

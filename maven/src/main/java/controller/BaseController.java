@@ -21,6 +21,8 @@ import model.DataAccessObject;
 import model.IReference;
 import model.IRuleDomain;
 import model.ISource;
+import model.SourceBook;
+import model.SourceWeb;
 import javafx.event.ActionEvent;
 
 public class BaseController {
@@ -175,14 +177,26 @@ public class BaseController {
     protected void showSourceDetail(Stage targetStage, ISource src) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(BaseController.class.getResource("../view/BookSourceDetailView.fxml"));
+            if (src instanceof SourceBook) {
+                loader.setLocation(BaseController.class.getResource("../view/BookSourceDetailView.fxml"));
+            }
+            if (src instanceof SourceWeb) {
+                loader.setLocation(BaseController.class.getResource("../view/WebSourceDetailView.fxml"));
+            }
 
             Scene scene = new Scene(loader.load());
             targetStage.setScene(scene);
 
             if (src != null) {
-                BookSourceDetailController ctrl = loader.getController();
-                ctrl.setEditSource(src);
+                // yes I could refactor that better with another class but I will not, I am already way out of scope of this programming task
+                if (src instanceof SourceBook) {
+                    BookSourceDetailController ctrl = loader.getController();
+                    ctrl.setEditSource(src);
+                }
+                if (src instanceof SourceWeb) {
+                    WebSourceDetailController ctrl = loader.getController();
+                    ctrl.setEditSource(src);
+                }
             }
 
             targetStage.show();

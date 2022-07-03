@@ -7,9 +7,10 @@ import model.ISource;
 import model.RuleDomain;
 import model.Source;
 import model.SourceBook;
-
+import model.SourceWeb;
 import model.Reference;
 
+import java.net.URL;
 import java.time.LocalDate;
 
 import javafx.collections.FXCollections;
@@ -27,9 +28,9 @@ import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
-public class BookSourceDetailController extends BaseController {
+public class WebSourceDetailController extends BaseController {
 
-    private SourceBook editSource;
+    private SourceWeb editSource;
 
     @FXML
     private TextField name;
@@ -38,33 +39,34 @@ public class BookSourceDetailController extends BaseController {
     private TextField author;
 
     @FXML
-    private TextField isbn;
+    private TextField website;
 
     @FXML
     private TextArea description;
 
     @FXML
-    private DatePicker year;
+    private DatePicker lastVisit;
 
     @FXML
     private Button btnDel;
 
-    private boolean validateIsbn() {
-        if (isbn.getText().length()>0) {
-            if (!DataAccessObject.getInstance().checkIsbnValid(isbn.getText())) {
-                showError("Eingegebener ISBN ist ungültig.");
-                return false;
-            }
+    private boolean validateWebsite() {
+        if (website.getText().length()<1) {
+            return false;
+        }
+        String url = website.getText().trim();
+        if (!url.startsWith("http")) {
+            url = "https://" + url; // easy fix for forgotten protocol
+        }
+        try {
+            URL testUrl = new URL(url);
+        } catch (Exception e) {
+            return false;
         }
         return true;
     }
 
-    @FXML
-    private void onIsbnChanged(ActionEvent e) {
-        validateIsbn();
-    }
-
-    public BookSourceDetailController() {
+    public WebSourceDetailController() {
         super();
     }
 
@@ -73,13 +75,14 @@ public class BookSourceDetailController extends BaseController {
         {
             return;
         }
-        this.editSource = (SourceBook)src;
+
+        this.editSource = (SourceWeb)src;
 
         name.setText(editSource.getName());
         author.setText(editSource.getAuthor());
-        isbn.setText(editSource.getIsbn());
+        website.setText(editSource.getWebsite());
         description.setText(editSource.getDescription());
-        year.setValue(editSource.getPublishDate());
+        lastVisit.setValue(editSource.getPublishDate());
 
         btnDel.setVisible(true);
         name.setDisable(true);
@@ -90,15 +93,19 @@ public class BookSourceDetailController extends BaseController {
             showError("Name benötigt.");
             return false;
         }
-        if (year.getValue() == null) {
-            showError("Erscheinungsjahr benötigt.");
+        if (lastVisit.getValue() == null) {
+            showError("Letztes Aufrufdatum benötigt.");
             return false;
         }
-        return validateIsbn();
+        if (!validateWebsite()) {
+            showError("Website URL nicht gültig.");
+            return false;
+        }
+        return true;
     }
 
-    private SourceBook getSourceFromFields() {
-        return new SourceBook(name.getText(), description.getText(), author.getText(), year.getValue(), isbn.getText());
+    private SourceWeb getSourceFromFields() {
+        return new SourceWeb(name.getText(), description.getText(), author.getText(), lastVisit.getValue(), website.getText());
     }
 
     private boolean saveData() {
@@ -106,7 +113,7 @@ public class BookSourceDetailController extends BaseController {
             return false;
         }
 
-        SourceBook newSource = getSourceFromFields();
+        SourceWeb newSource = getSourceFromFields();
 
         if (this.editSource == null) {
             DataAccessObject.getInstance().createSource(newSource);
@@ -140,7 +147,7 @@ public class BookSourceDetailController extends BaseController {
 
     public void initialize(){
         if (editSource == null) {
-            year.setValue(LocalDate.now());
+            lastVisit.setValue(LocalDate.now());
         }
     }
 }

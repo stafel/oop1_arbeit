@@ -10,8 +10,10 @@ model\Reference.class
 model\RuleDomain.class
 controller\BaseController.class
 model\IReference.class
+model\SourceWeb.class
 controller\SourceOverviewController.class
 model\ISource.class
 model\DataAccessObject.class
 controller\DomainOverviewController.class
 controller\DomainDetailController.class
+controller\WebSourceDetailController.class

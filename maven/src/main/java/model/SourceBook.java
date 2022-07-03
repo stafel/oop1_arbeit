@@ -18,6 +18,11 @@ public class SourceBook extends Source {
         super(name, description, author, publishDate);
         this.isbn = isbn;
     }
+
+    public SourceBook() {
+        super("", "", "", LocalDate.now());
+        setIsbn("");
+    }
     
     @Override
     public boolean update(ISource updateData) {
