@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.DataAccessObject;
 import model.IReference;
+import model.IRuleDomain;
 import model.ISource;
 import javafx.event.ActionEvent;
 
@@ -109,11 +110,23 @@ public class BaseController {
 
     protected boolean askDelete(ISource src) {
         if (DataAccessObject.getInstance().getReferencesForSource(src).size() > 0) {
-            showError("Buch wird referenziert. Zuerst Referenzen löschen.");
+            showError("Buch '" + src.getName() + "' wird referenziert. Zuerst Referenzen löschen.");
             return false;
         }
         if (askYesNo("Eintrag '" + src.getName() + "' wirklich löschen?") == true) {
             DataAccessObject.getInstance().deleteSource(src);
+            return true;
+        }
+        return false;
+    }
+
+    protected boolean askDelete(IRuleDomain dom) {
+        if (DataAccessObject.getInstance().getReferencesForDomain(dom).size() > 0) {
+            showError("Regelbereich '" + dom.getName() + "' wird referenziert. Zuerst Referenzen löschen.");
+            return false;
+        }
+        if (askYesNo("Eintrag '" + dom.getName() + "' wirklich löschen?") == true) {
+            DataAccessObject.getInstance().deleteDomain(dom);
             return true;
         }
         return false;
@@ -178,6 +191,25 @@ public class BaseController {
         }
     }
 
+    protected void showDomainDetail(Stage targetStage, IRuleDomain dom) {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(BaseController.class.getResource("../view/DomainDetailView.fxml"));
+
+            Scene scene = new Scene(loader.load());
+            targetStage.setScene(scene);
+
+            if (dom != null) {
+                DomainDetailController ctrl = loader.getController();
+                ctrl.setEditDomain(dom);
+            }
+
+            targetStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected void showReferenceOverview(Stage targetStage) {
         showSceneOnStage(targetStage, "Referenzen übersicht", "../view/ReferenceOverviewView.fxml");
     }
@@ -205,6 +237,9 @@ public class BaseController {
     }
 
     protected Stage selectEditStage(Stage overviewStage, Stage substage){
+        if (detailInMain == null) { // fallback to substage if we do not have this button 
+            return substage;
+        }
         if (detailInMain.isSelected()) {
             return overviewStage;
         } else {

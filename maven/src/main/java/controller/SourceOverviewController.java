@@ -30,6 +30,8 @@ public class SourceOverviewController extends BaseController{
     @FXML
     private TableColumn<ISource,String> srcName;
     @FXML
+    private TableColumn<ISource,String> srcDesc;
+    @FXML
     private TableColumn<ISource,String> srcAuthor;
     @FXML
     private TableColumn<ISource,String> srcYear;
@@ -76,6 +78,10 @@ public class SourceOverviewController extends BaseController{
 
         srcName.setCellValueFactory(
             new PropertyValueFactory<ISource,String>("name")
+        );
+
+        srcDesc.setCellValueFactory(
+            new PropertyValueFactory<ISource,String>("description")
         );
 
         srcAuthor.setCellValueFactory(

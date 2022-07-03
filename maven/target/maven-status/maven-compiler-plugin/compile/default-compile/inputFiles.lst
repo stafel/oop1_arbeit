@@ -1,5 +1,6 @@
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\Source.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\RuleDomain.java
+C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\controller\DomainDetailController.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\controller\SourceOverviewController.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\IReference.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\Reference.java
@@ -8,6 +9,7 @@ C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\So
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\IRuleDomain.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\MainApp.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\controller\BaseController.java
+C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\controller\DomainOverviewController.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\controller\RefDetailController.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\ISource.java
 C:\Users\Rafael Stauffer\Documents\java\oop1_arbeit\maven\src\main\java\model\DataAccessObject.java

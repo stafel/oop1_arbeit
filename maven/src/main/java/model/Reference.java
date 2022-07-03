@@ -61,4 +61,14 @@ public class Reference implements IReference, Serializable {
     public void setPage(String page) {
         this.page = page;
     }
+
+    public boolean update(IReference updateData) {
+
+        //setName(updateData.getName()); // primary key not changeable
+        setPage(updateData.getPage());
+        setDomain(updateData.getDomainRef());
+        setSource(updateData.getSourceRef());
+
+        return true;
+    }
 }

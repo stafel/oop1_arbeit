@@ -9,4 +9,6 @@ public interface IReference {
 
     ISource getSourceRef();
     IRuleDomain getDomainRef();
+
+    boolean update(IReference updateData);
 }

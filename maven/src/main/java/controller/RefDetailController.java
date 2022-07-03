@@ -107,11 +107,15 @@ public class RefDetailController extends BaseController {
             return false;
         }
 
+        boolean modifySuccess = false;
+
         if (editFlag.isSelected()) {
-            DataAccessObject.getInstance().modifyReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
+            modifySuccess = DataAccessObject.getInstance().modifyReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
         } else {
-            DataAccessObject.getInstance().createReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
+            modifySuccess = DataAccessObject.getInstance().createReference(new Reference(name.getText(), DataAccessObject.getInstance().getSource(book.getValue()), DataAccessObject.getInstance().getDomain(domain.getValue()), page.getText()));
         }
+
+        System.out.println(modifySuccess);
 
         return true;
     }

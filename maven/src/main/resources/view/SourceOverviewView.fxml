@@ -42,8 +42,9 @@
       <TableView fx:id="sourceTable" prefHeight="374.0" prefWidth="600.0">
         <columns>
           <TableColumn fx:id="srcName" prefWidth="151.2000732421875" text="Name" />
-          <TableColumn fx:id="srcAuthor" prefWidth="168.79998779296875" text="Author" />
-            <TableColumn fx:id="srcYear" prefWidth="157.60003662109375" text="Jahr" />
+            <TableColumn fx:id="srcDesc" prefWidth="215.20001220703125" text="Description" />
+          <TableColumn fx:id="srcAuthor" prefWidth="156.0" text="Author" />
+            <TableColumn fx:id="srcYear" prefWidth="77.60003662109375" text="Jahr" />
         </columns>
       </TableView>
    </children>

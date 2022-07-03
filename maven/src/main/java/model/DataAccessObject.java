@@ -27,10 +27,10 @@ public class DataAccessObject {
         
         
         domains = FXCollections.observableArrayList();
-        domains.add(new RuleDomain("Social"));
-        domains.add(new RuleDomain("Fight"));
-        domains.add(new RuleDomain("Travel"));
-        domains.add(new RuleDomain("Character creation"));
+        domains.add(new RuleDomain("Social", "Rules about social encounters like talking to commoners, how to blend in social gatherings, how lies and deception are handled"));
+        domains.add(new RuleDomain("Fight", "Direct physical encounter between opponents"));
+        domains.add(new RuleDomain("Travel", "Moving big distances outside of combat"));
+        domains.add(new RuleDomain("Character creation", "Rules and guidance about character creation and progression"));
 
         references = FXCollections.observableArrayList(); //new ArrayList<IReference>();
         references.add(new Reference("Basic character creation", sources.get(0), domains.get(3), "24 - 28"));
@@ -66,6 +66,24 @@ public class DataAccessObject {
         return true;
     }
 
+    public boolean sourceNameValid(String name) {
+        for (ISource src : sources) {
+            if (src.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean domainNameValid(String name) {
+        for (IRuleDomain dom : domains) {
+            if (dom.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public boolean createReference(IReference ref) {
         if (!referenceNameValid(ref.getName())) {
             return false;
@@ -78,7 +96,7 @@ public class DataAccessObject {
     public boolean modifyReference(IReference ref) {
         for (IReference originalRef : references) {
             if (originalRef.getName().equals(ref.getName())) {
-                references.remove(originalRef);
+                references.remove(originalRef); // this is a hack to force tableViews to update
                 references.add(ref);
                 return true;
             }
@@ -124,17 +142,8 @@ public class DataAccessObject {
         return null;
     }
 
-    public boolean sourceNameValid(String name) {
-        for (ISource src : sources) {
-            if (src.getName().equals(name)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public boolean createSource(ISource src) {
-        if (!referenceNameValid(src.getName())) {
+        if (!sourceNameValid(src.getName())) {
             return false;
         } else {
             sources.add(src);
@@ -142,11 +151,21 @@ public class DataAccessObject {
         }
     }
 
+    private void cascadeSourceModification(ISource oldSrc, ISource newSrc) {
+        for (IReference ref : references) {
+            Reference castRef = (Reference)ref;
+            if (castRef.getSource().equals(oldSrc.getName())) {
+                castRef.setSource(newSrc);
+            }
+        }
+    }
+
     public boolean modifySource(ISource src) {
         for (ISource originalSource : sources) {
             if (originalSource.getName().equals(src.getName())) {
-                originalSource.update(src);
-                return true;
+                cascadeSourceModification(originalSource, src);
+                sources.remove(originalSource); // this is a hack to force tableViews to update
+                sources.add(src);
             }
         }
         return false;
@@ -168,10 +187,65 @@ public class DataAccessObject {
         return false;
     }
 
+    public boolean createDomain(IRuleDomain dom) {
+        if (!domainNameValid(dom.getName())) {
+            return false;
+        } else {
+            domains.add(dom);
+            return true;
+        }
+    }
+
+    private void cascadeDomainModification(IRuleDomain oldDom, IRuleDomain newDom) {
+        for (IReference ref : references) {
+            Reference castRef = (Reference)ref;
+            if (castRef.getDomain().equals(oldDom.getName())) {
+                castRef.setDomain(newDom);
+            }
+        }
+    }
+
+    public boolean modifyDomain(IRuleDomain dom) {
+        for (IRuleDomain originalDomain : domains) {
+            if (originalDomain.getName().equals(dom.getName())) {
+                cascadeDomainModification(originalDomain, dom);
+                domains.remove(originalDomain); // this is a hack to force tableViews to update
+                domains.add(dom);
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteDomain(IRuleDomain dom) {
+        // for consistency: while it only uses the name as a primary key for deletion the delete method takes the same IReference input as the create and modify
+        for (IRuleDomain originalDomain : domains) {
+            if (originalDomain.getName().equals(dom.getName())) {
+
+                if (getReferencesForDomain(dom).size() > 0) {
+                    return false;
+                }            
+
+                domains.remove(originalDomain);
+                return true;
+            }
+        }
+        return false;
+    }
+
     public ObservableList<IReference> getReferencesForSource(ISource src) {
         ObservableList<IReference> linkedReferences = FXCollections.observableArrayList();
         for (IReference ref : references) {
             if (ref.getSource().equals(src.getName())) { // check for names to allow weak binding later
+                linkedReferences.add(ref);
+            }
+        }
+        return linkedReferences;
+    }
+
+    public ObservableList<IReference> getReferencesForDomain(IRuleDomain dom) {
+        ObservableList<IReference> linkedReferences = FXCollections.observableArrayList();
+        for (IReference ref : references) {
+            if (ref.getDomain().equals(dom.getName())) { // check for names to allow weak binding later
                 linkedReferences.add(ref);
             }
         }
