@@ -49,9 +49,19 @@ public class BookSourceDetailController extends BaseController {
     @FXML
     private Button btnDel;
 
+    private boolean validateIsbn() {
+        if (isbn.getText().length()>0) {
+            if (!DataAccessObject.getInstance().checkIsbnValid(isbn.getText())) {
+                showError("Eingegebener ISBN ist ungültig.");
+                return false;
+            }
+        }
+        return true;
+    }
+
     @FXML
     private void onIsbnChanged(ActionEvent e) {
-        System.out.println(e);
+        validateIsbn();
     }
 
     public BookSourceDetailController() {
@@ -76,7 +86,7 @@ public class BookSourceDetailController extends BaseController {
             showError("Name benötigt.");
             return false;
         }
-        return true;
+        return validateIsbn();
     }
 
     private SourceBook getSourceFromFields() {

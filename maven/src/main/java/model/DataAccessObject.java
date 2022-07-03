@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,6 +14,8 @@ public class DataAccessObject {
     ObservableList<IRuleDomain> domains;
     ObservableList<IReference> references;
     ObservableList<ISource> sources;
+
+    private Pattern numbericPattern = Pattern.compile("\\d+"); // regex searches for numerics only, no negative sign or floats
 
     private static DataAccessObject bridge;
 
@@ -166,6 +169,7 @@ public class DataAccessObject {
                 cascadeSourceModification(originalSource, src);
                 sources.remove(originalSource); // this is a hack to force tableViews to update
                 sources.add(src);
+                return true;
             }
         }
         return false;
@@ -211,6 +215,7 @@ public class DataAccessObject {
                 cascadeDomainModification(originalDomain, dom);
                 domains.remove(originalDomain); // this is a hack to force tableViews to update
                 domains.add(dom);
+                return true;
             }
         }
         return false;
@@ -250,5 +255,49 @@ public class DataAccessObject {
             }
         }
         return linkedReferences;
+    }
+
+    private boolean checkIsbn10(String isbn) {
+        int multiplicator = 10;
+        double result = 0;
+        for (int i : isbn.chars().toArray()) {
+            result += i * multiplicator;
+            multiplicator--;
+        }
+        return (result % 11) == 0;
+    }
+
+    private boolean checkIsbn13(String isbn) {
+        double result = 0;
+        boolean oddChar = true;
+        for (int i : isbn.chars().toArray()) {
+            if (oddChar) {
+                result += i * 1;
+            } else {
+                result += i * 3;
+            }
+            oddChar = !oddChar;
+        }
+        return (result % 10) == 0;
+    }
+
+    public boolean checkIsbnValid(String isbn) {
+        String trimmedIsbn = isbn.replace('-', ' ').replaceAll("\\s", "");
+        if ((trimmedIsbn.length() != 10) && (trimmedIsbn.length() != 13)) {
+            return false; // size does not match isbn 10 or 13 standard
+        }
+
+        if (!numbericPattern.matcher(trimmedIsbn).matches()) {
+            return false;
+        }
+
+        switch(trimmedIsbn.length()) {
+            case (10):
+                return checkIsbn10(trimmedIsbn);
+            case (13):
+                return checkIsbn13(trimmedIsbn);
+            default:
+                return false; // invalid size does not match
+        }
     }
 }

@@ -19,3 +19,8 @@ detailview delete button (refactoring askDelete nach base), applybutton hide ein
 
 03.07.2022: detailview zu büchersourcen und Bereich erstellt
 übersicht zu bücher erstellt, crud in doa zu bücher erstellt, anzeige von scenen in basecontroller refaktoriert
+erscheinungsjahr source methoden get und set localdate, year intern zu publish date geändert
+
+regelbereich detailview verbunden, bugfix listView update bei modify
+
+isbn check added, throws exceptions
