@@ -26,7 +26,7 @@ import model.SourceWeb;
 import javafx.event.ActionEvent;
 
 public class BaseController {
-    // base controller implements reused buttons like aboutMe and exit
+    // base controller implements reused buttons like aboutMe, exit and the menu bar functions
 
     @FXML
     private CheckMenuItem detailInMain;
@@ -84,13 +84,14 @@ public class BaseController {
     }
 
     protected void showError(String errorMsg) {
+        // just show an error alert with errorMsg
         Alert alrt = new Alert(AlertType.ERROR);
         alrt.setContentText(errorMsg);
         alrt.show();
     }
 
     protected boolean askYesNo(String question) {
-        // simplified alert returns true if yes was chosen
+        // simplified alert returns true if yes was chosen, all other options are false
 
         Alert alrt = new Alert(AlertType.CONFIRMATION, question, ButtonType.YES, ButtonType.NO);
         Optional<ButtonType> result = alrt.showAndWait();
@@ -103,6 +104,7 @@ public class BaseController {
     }
 
     protected boolean askDelete(IReference ref) {
+        // first ask yes/no before deleting
         if (askYesNo("Eintrag '" + ref.getName() + "' wirklich löschen?") == true) {
             DataAccessObject.getInstance().deleteReference(ref);
             return true;
@@ -111,6 +113,7 @@ public class BaseController {
     }
 
     protected boolean askDelete(ISource src) {
+        // check if source is still used then ask yes/no before deleting
         if (DataAccessObject.getInstance().getReferencesForSource(src).size() > 0) {
             showError("Buch '" + src.getName() + "' wird referenziert. Zuerst Referenzen löschen.");
             return false;
@@ -123,6 +126,7 @@ public class BaseController {
     }
 
     protected boolean askDelete(IRuleDomain dom) {
+        // check if domain is still used then ask yes/no before deleting
         if (DataAccessObject.getInstance().getReferencesForDomain(dom).size() > 0) {
             showError("Regelbereich '" + dom.getName() + "' wird referenziert. Zuerst Referenzen löschen.");
             return false;
@@ -175,6 +179,7 @@ public class BaseController {
     }
 
     protected void showSourceDetail(Stage targetStage, ISource src) {
+        // find out if we load a book or website to set the correct view
         try {
             FXMLLoader loader = new FXMLLoader();
             if (src instanceof SourceBook) {
@@ -239,10 +244,6 @@ public class BaseController {
     private void showSceneOnStage(Stage targetStage, String title, String sceneURI) {
         try {
             FXMLLoader loader = new FXMLLoader();
-            System.out.println(sceneURI);
-            System.out.println(this.getClass().getResource(sceneURI));
-            System.out.println(BaseController.class.getResource(sceneURI));
-
             loader.setLocation(BaseController.class.getResource(sceneURI));
 
             Scene scene = new Scene(loader.load());
