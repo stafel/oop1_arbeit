@@ -8,6 +8,9 @@
 \usepackage{siunitx}
 \usepackage{pgfplotstable}
 \usepackage{microtype} % helps with justification
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{hyperref}
 
 \title{OOP1 Dokumentation}
 \subtitle{Referenzverwaltung}
@@ -26,7 +29,6 @@ Stauffer Rafael OOP1 Dokumentation.pdf
 \begin{document}
 \maketitle{\thispagestyle{fancy}}
 \tableofcontents{\thispagestyle{fancy}}
-\newpage
 \section{Versionierung}
 \begin{table}[h!]
 \begin{center}
@@ -38,6 +40,10 @@ every head row/.style={before row={\toprule},after row={\midrule},},
 every last row/.style={after row=\bottomrule},]{versionierung.csv}
 \end{center}
 \end{table}
+\newpage
+\section{Zusammenfassung}
+\input{Summary}
+\newpage
 \section{Funktionen}
 \input{Funktion01}
 \input{Funktion02}
