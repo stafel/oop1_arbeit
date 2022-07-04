@@ -124,7 +124,7 @@ public class SourceOverviewController extends BaseController{
                         ISource clickedSource = row.getItem();
                         startEdit(clickedSource);
                     } else {
-                        startCreate(new SourceBook("", "", "", LocalDate.now(), ""));
+                        startCreate(new SourceBook());
                     }
                 }
             });

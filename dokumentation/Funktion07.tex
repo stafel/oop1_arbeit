@@ -1,0 +1,16 @@
+\subsection[Funktion 7 Selektion]{Funktion 7 Einsatz mindestens einer Variante der Selektion im Controller}
+
+\subsubsection{Anforderung}
+Selektionen werden beim Eingabeprüfung getroffen werden um dem Nutzer Feedback zu geben.
+
+\subsubsection{Design}
+Es wurde dieser Anforderung keine nähere Design-Betrachtung geschenkt, da sich eine gelgenheit für eine Selektion finden würde in diesem mässig komplexen Projekt.
+
+\subsubsection{Entwicklung}
+Nutzereingabenprüfung wurde in die checkInputData-Methoden der DetailController implementiert welche eine Serie von IfElse-Selektionen verwenden um die Daten zu validieren. Einzig im DataAccessObject in der Methode checkIsbnValid wurde ein SwitchCase verbaut, da es sich dort auf die Vorgehensauswahl anhand der ISBN-Länge angeboten hat.
+
+\subsubsection{Test}
+Korrekte Funktion der Selektionen wurde im Rahmen von F6 Alerts überprüft.
+
+\subsubsection{Fazit}
+Einfache implementation. Auf die Verwendung von equals bei Stringvergleichen muss geachtet werden.

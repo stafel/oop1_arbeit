@@ -1,0 +1,21 @@
+\subsection[Funktion 5 Listeneinsatz mit Beispielobjekten]{Funktion 5 Einsatz einer Liste sowohl im Controller auch als auf der grafischen Oberfläche und es müssen mindestens drei Beispielobjekte beim Starten in die Liste eingetragen werden.}
+
+\subsubsection{Anforderung}
+Für jede der drei Objekten (Source, Referenz und Bereich) wurde je eine Übersichtsliste auf der Oberfläche und eine dazugehörige Liste im Controller geplant.
+
+\subsubsection{Design}
+Ausgabe auf der Oberflächer wurde per ListView geplant, dahinter im Controller die dazugehörige ObservableList welche vom DataAccessObject (DAO) aus einem Array gespeist wird.
+
+\subsubsection{Entwicklung}
+Für die Übersicht und Sortierung wurde die ListView durch eine TableView ersetzt. Die ObservableLists werden direkt vom DAO verwaltet. Nur in Sonderfällen wie die Verknüpfung von der Referenz mit Source/Bereich muss der Controller selbst die Liste verwalten. Beim Instanzieren des DAO werden die Beispielobjekte in die jeweiligen Listen instanziert.
+
+\subsubsection{Test}
+\begin{itemize}
+	\item drei oder mehr Beispielreferenzen in Referenzübersicht vorhanden
+	\item drei oder mehr Beispielsourcen in Sourceübersicht vorhanden
+	\item drei oder mehr Beispielbereiche in Bereichübersicht vorhanden
+	\item Befüllung der Source- und Bereich-ComboBox beim Erstellen und Bearbeiten einer Referenz
+\end{itemize}
+
+\subsubsection{Fazit}
+Das Arbeiten mit den TableViews und ObservableLists war einfach. Einzig die Erstellung der CellValueFactory und RowFactory zur Formatierung und Event-Handling benötigte erwas einarbeitszeit.

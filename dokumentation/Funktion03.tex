@@ -1,0 +1,24 @@
+\subsection[Funktion 3 CRUD]{Funktion 3 Ein Objekt muss erstellt, geändert und gelöscht werden können}
+
+\subsubsection{Anforderung}
+Sourcen, Bereiche und Referenzen müssen verwaltet werden können. Dabei wurde festgelegt, dass Bereiche und Sourcen nur gelöscht werden können, wenn sie nicht von Referenzen aktiv verwendet werden können.
+
+\subsubsection{Design}
+Ein DataAccesssObject (DAO) als Singleton wurde gewählt um die Datenverarebeitung von der Datenspeicherung zu lösen. Eine Serialisierung in einzelne lokale Dateien zur Persistierung der Daten wurde eingeplant. Das DAO soll interne Arrays halten welche von den Controllern abgefragt und als ObservableList weiterverwendet werden können. In der Referenz sind der Bereich und die Source als Objektreferez gespeichert und werden über diese Abgefragt.
+
+\subsubsection{Entwicklung}
+DAO wurde geändert sodass direkt ObservableLists darin verwaltet werden welche nur noch von den Controllern referenziert werden. Dies vereinfacht das Event-Handling bei Erstellung und Löschung. Die Persistierung der Daten wurde wegen zu hohem Aufwand nicht durchgeführt. Die Source und Bereich sind weiterhin als Objektreferenzen in der Referenz gespeichert, jedoch wird primär der jeweilige Name zur Verknüpfung verwendet um die Objekte zu entkoppeln. Dies aber verbietet die Bearbeitung des Namens, da dieser nun den Primärschlüssel darstellt.
+
+\subsubsection{Test}
+\begin{itemize}
+	\item Erstellen einer Referenz/Source/Bereich
+	\item Ändern eines Referenz/Source/Bereich
+	\item Löschen eines Referenz/Source/Bereich
+	\item Testen der Lösch-Verhinderung einer Source/Bereich welche verwendet wird
+	\item Testen der Änderungs-Verhinderung eines Namens bei bereits erstelltem Objekt
+	\item Referenzieren einer neu erstellten Source/Bereich in einer Referenz
+	\item Übernahme der Veränderung vom Detail-Screen in die Übersichtstabelle
+\end{itemize}
+
+\subsubsection{Fazit}
+Die Verbindung zwischen ObservableList und den Tabellen war ein Knackpunkt, da Änderungen an Objekt-Attributen nicht zuverlässig weiterkommuniziert wurden. Als Umgehungslösung werden bei einer Änderung die Objekte gelöscht und neu in die ObservableList eingefügt, dabei werden vorhandene Verknüpfungen neu erstellt.

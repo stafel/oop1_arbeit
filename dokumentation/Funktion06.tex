@@ -1,0 +1,23 @@
+\subsection[Funktion 6 Alerts]{Funktion 6 Verwendung von Alerts bei Benutzereingaben}
+
+\subsubsection{Anforderung}
+Pflichtfender wie Name müssen ausgefüllt werden, Fehlermeldung beim Löschversuch von Referenzierten Sourcen/Bereichen und Überprüfung der Eingabe wie zB: ISBN Nummer benötigen Alerts als Nutzerfeedback.
+
+\subsubsection{Design}
+In der Design-Phase wurde festgelegt, dass nur Error-Fehlermeldungen und JaNein-Fragen verwendet werden. In diesem limitierten Umfang gibt es keine Verwendung für Info-Meldungen oder Warnungen. Zur wiederverwendbarkeit wurden diese beiden Fälle in dem BaseController abgebildet.
+
+\subsubsection{Entwicklung}
+Einbau in den BaseController zur wiederverwendbarkeit, zur einfachen Handhabung in den einzelnen Controllern wurde die komplexe Rückgabe des JaNein-Dialogs auf ein simples boolean (true = Ja, false = alles andere) reduziert. Diese Methode askYesNo konnte damit an allen drei Lösch-Funktionen einfach wiederverwendet werden. Ebenfalls wurde die Methode showError 14 mal wiederverwendet um die einzelnen Eingabefehler rückzumelden.
+
+\subsubsection{Test}
+\begin{itemize}
+	\item JaNein-Dialog wird beim Löschen angezeigt
+	\item Objekt wird nur bei der Wahl Ja gelöscht im JaNein-Dialog
+	\item JaNein-Dialog zeigt Name des zu löschenden Objekts an
+	\item Bei Fehlendem Name wird ein Error-Dialog angezeigt und nicht gespeichert
+	\item Bei fehlerhaften ISBN wird ein Error-Dialog angezeigt und nicht gespeichert
+	\item Bei fehlerhaften URL wird ein Error-Dialog angezeigt und nicht gespeichert
+\end{itemize}
+
+\subsubsection{Fazit}
+Nach kurzem Durchlesen der Dokumentation über Alerts waren diese einfach zu benutzen.

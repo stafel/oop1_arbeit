@@ -1,0 +1,21 @@
+\subsection[Funktion 4 Menü]{Funktion 4 Einsatz eines Menüs auf der grafischen Oberfläche mit den Menüitems Über mich und Exit.}
+
+\subsubsection{Anforderung}
+Der Szenarienbeschrieb selbst hat keine weiteren Anforderungen an das Menü gestellt.
+
+\subsubsection{Design}
+Ein Menü mit den geforderten Menüitems sowie eines Kapitels Edit für die CRUD-Operationen und View zum wechseln in die anderen Übersichtsbereiche wurde geplant. Eine View nur mit dem Menü welches danach dynamisch über dem Inhalt angezeigt wird wurde geplant.
+
+\subsubsection{Entwicklung}
+Die View-Platzierung hat nicht funktioniert und es wurde stattdessen das Menü in jedes Übersichts-View eingefügt. Diese Lösung ist von geringer Wiederverwendbarkeit hat aber die Entwicklung und spezifische Anpassung des Sourcen-Menüs beschleunigt.
+
+\subsubsection{Test}
+\begin{itemize}
+	\item Exit schliesst alle Fenster
+	\item ÜberMich öffnet Informationsfenster
+	\item Edit-MenüItems starten entsprechende CRUD-Operationen
+	\item View-MenüItems wechseln zum entsprechenden Übersichtsfenster
+\end{itemize}
+
+\subsubsection{Fazit}
+Bis auf das SubScreen-Problem ging die Entwicklung rasch voran und das Entwerfen des Menülayouts im SceneBuilder war einfach.

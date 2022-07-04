@@ -1,0 +1,16 @@
+\subsection[Funktion 8 Iteration]{Funktion 8 Einsatz minestens einer Variante der Iteration im Controller}
+
+\subsubsection{Anforderung}
+Das Befüllen der Listen hat sich hier angeboten.
+
+\subsubsection{Design}
+Das initiale Design plane die ArrayList der Objekte vom DataAccessObject (DAO) im Controller per for-Loop in eine ObservableList umzuwandeln.
+
+\subsubsection{Entwicklung}
+Durch die Änderung der Architektur (siehe F3) wie die Listen direkt im DAO verwaltet werden entfällt die initial geplante Iteration im Controller. Einzig der RefDetailController enthält noch Schleifen welche die Sourcen und Bereiche in die ComboBoxen füllen. Alle komplexeren Schleifen wurden in das DAO ausgelagert wie zB: checkIsbn10 und checkIsbn13 welche die Prüfsummen der ISBN-Nummern berechnen und validieren.
+
+\subsubsection{Test}
+Korrekte funktion der Iterationen wurde in F3, F5 und F6 validiert.
+
+\subsubsection{Fazit}
+Einfache implementation wobei die forEach-Iteration der klassischen for-Iteration und while-Iteration mit Integer-Iterator vorgezogen wurde da sie eine kürzere und sicherere Schreibweise besitzt.
