@@ -1,6 +1,6 @@
 public class ShadeMain {
+    // just a proxy call, this 'shades' the MainApp from the outside to allow building of a fat JAR
     public static void main(String[] args) {
-        // Fat Jar fails if built with direct reference to MainApp extends Application
         MainApp.main(args);
     }
 }

@@ -1,0 +1,16 @@
+\subsection[Funktion 9 Methode im Controller]{Funktion 9 Im Controller minestens eine Methode eingesetzt.}
+
+\subsubsection{Anforderung}
+Methoden wurden nicht besonders in der Anforderung beachtet, da durch die Quellcodestrukturierung zur Übersichtlichkeit und Wiederverwendbarkeit autmatisch Methoden eingesetzt werden.
+
+\subsubsection{Design}
+Zur Eingabevalidierung wurden in den Detailcontroller die Methoden checkInputData und zur Generierung des Objektes aus den Feldern getDomainFromFields/getSourceFromFields/getReferenceFromFields implementiert. Wiederverwendbare Methoden befinden sich im BaseController. Objektmanipulation im DataAccessObject (DAO) oder den Objekten selbst.
+
+\subsubsection{Entwicklung}
+Methoden wurden iterativ ausgearbeitet, wann immer ein Codeteil mehrmals wiederverwendet werden konnte ohne weitere Komplexität zu addieren wurde daraus eine Methode erstellt. Dies ist sehr gut im BaseController beobachtbar wo die drei Übersichtsszenen immer mit der gleichen Methode showSceneOnStage aufgerufen werden, da sie sich identisch verhalten. Die Detailszenen werden trotz grosser Code überschneidung durch verschiedene Methoden aufgerufen, da für das Refaktorieren in eine Methode weitere Hilfsstrukturen eingefügt werden müssten.
+
+\subsubsection{Test}
+Methoden wurden passiv durch die anderen Funktionstest geprüft.
+
+\subsubsection{Fazit}
+Die Vorgehensweise war nicht sehr strukturiert und manche Methoden welche in einer Iteration entwickelt wurden konnten in der nächsten bereits wieder verworfen werden (zB: update Methoden der Business-Objekte von F1 werden nicht verwendet, da das Event-Handling nicht darauf abgestimmt ist, dies wurde aber erst nach der Implementation dieser geprüft).

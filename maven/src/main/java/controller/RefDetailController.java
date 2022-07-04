@@ -4,25 +4,22 @@ import model.DataAccessObject;
 import model.IReference;
 import model.IRuleDomain;
 import model.ISource;
-import model.RuleDomain;
-import model.Source;
 
 import model.Reference;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class RefDetailController extends BaseController {
+    // reference like all detail controlles validates input fields and does crud-operations with the help of the DAO
+
     private IReference editReference;
 
     @FXML
@@ -141,38 +138,6 @@ public class RefDetailController extends BaseController {
     }
 
     public void initialize(){
-        /* // converter fails?
-        // converter to convert objects into string representations
-        book.setConverter(
-            new StringConverter<ISource>() {
-                @Override
-                public String toString(ISource object) {
-                    return object.getName();
-                }
-
-                @Override
-                public ISource fromString(String string) {
-                    return new Source(string);
-                }
-            }
-        );
-        
-        // converter to convert objects into string representations
-        domain.setConverter(
-            new StringConverter<IRuleDomain>() {
-                @Override
-                public String toString(IRuleDomain object) {
-                    return object.getName();
-                }
-
-                @Override
-                public IRuleDomain fromString(String string) {
-                    return new RuleDomain(string);
-                }
-            }
-        );
-        */
-
         availableBooks = FXCollections.observableArrayList();
         availableDomains = FXCollections.observableArrayList();
         

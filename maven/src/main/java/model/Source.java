@@ -1,12 +1,8 @@
 package model;
 
-import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
-import javax.swing.text.DateFormatter;
-
-public class Source implements ISource, Serializable {
+public class Source implements ISource {
     private String name;
     private String description;
     private String author;

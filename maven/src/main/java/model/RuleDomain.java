@@ -1,8 +1,6 @@
 package model;
 
-import java.io.Serializable;
-
-public class RuleDomain implements IRuleDomain, Serializable {
+public class RuleDomain implements IRuleDomain {
     private String name;
     private String description;
 

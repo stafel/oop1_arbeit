@@ -4,6 +4,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 public class AboutController extends BaseController {
+    // about me screen just show a big text area with version and usage info
+
     @FXML
     private TextArea infotext;
 

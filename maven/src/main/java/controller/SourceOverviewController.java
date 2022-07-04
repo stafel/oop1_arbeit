@@ -1,28 +1,16 @@
 package controller;
 
 import model.DataAccessObject;
-import model.IReference;
 import model.ISource;
-import model.Reference;
-import model.Source;
 import model.SourceBook;
 import model.SourceWeb;
-import model.RuleDomain;
 
-import java.time.LocalDate;
-
-import javax.print.attribute.standard.MediaSize.ISO;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.control.TableRow;

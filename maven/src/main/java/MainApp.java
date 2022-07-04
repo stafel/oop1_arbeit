@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MainApp extends Application {
+    // Taken from the example app. Creates a stage for ReferenzOverview, after that the controllers are self-governing
 
     private Stage primaryStage;
 

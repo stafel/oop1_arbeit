@@ -1,34 +1,18 @@
 package controller;
 
 import model.DataAccessObject;
-import model.IReference;
 import model.IRuleDomain;
-import model.ISource;
 import model.RuleDomain;
-import model.Source;
-import model.SourceBook;
 
-import model.Reference;
-
-import java.time.LocalDate;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import javafx.collections.ObservableList;
-import javafx.css.Rule;
 import javafx.event.ActionEvent;
 
 public class DomainDetailController extends BaseController {
+    // domain (called Regelbereich in the frontend) like all detail controlles validates input fields and does crud-operations with the help of the DAO
 
     private RuleDomain editDomain;
 

@@ -6,17 +6,12 @@ import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.SubScene;
-import javafx.scene.chart.PieChart.Data;
-import javafx.scene.layout.HBox;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import model.DataAccessObject;
 import model.IReference;
 import model.IRuleDomain;
@@ -256,6 +251,7 @@ public class BaseController {
     }
 
     protected Stage selectEditStage(Stage overviewStage, Stage substage){
+        // shim method to allow display of the detailView in the mainStage. currently unused
         if (detailInMain == null) { // fallback to substage if we do not have this button 
             return substage;
         }

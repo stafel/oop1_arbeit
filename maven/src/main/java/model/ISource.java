@@ -2,7 +2,7 @@ package model;
 
 import java.time.LocalDate;
 
-/* source holds general reusable data about a quotable media like a book */
+/* source holds general reusable data about a quotable media like a book or website */
 public interface ISource {
     String getName();
     String getDescription();

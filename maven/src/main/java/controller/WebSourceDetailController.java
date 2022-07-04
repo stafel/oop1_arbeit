@@ -1,34 +1,22 @@
 package controller;
 
 import model.DataAccessObject;
-import model.IReference;
-import model.IRuleDomain;
 import model.ISource;
-import model.RuleDomain;
-import model.Source;
-import model.SourceBook;
 import model.SourceWeb;
-import model.Reference;
 
 import java.net.URL;
 import java.time.LocalDate;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArray;
 import javafx.fxml.FXML;
-import javafx.scene.chart.PieChart.Data;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import javafx.util.StringConverter;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 
 public class WebSourceDetailController extends BaseController {
+    // website source like all detail controlles validates input fields and does crud-operations with the help of the DAO
 
     private SourceWeb editSource;
 
@@ -51,6 +39,7 @@ public class WebSourceDetailController extends BaseController {
     private Button btnDel;
 
     private boolean validateWebsite() {
+        // check if an url is filled in and valid according to url-spec
         if (website.getText().length()<1) {
             return false;
         }
@@ -89,6 +78,7 @@ public class WebSourceDetailController extends BaseController {
     }
 
     private boolean checkInputData() {
+        // name, url and lastVisitDate are required
         if (name.getText() == null) {
             showError("Name benötigt.");
             return false;
@@ -147,7 +137,7 @@ public class WebSourceDetailController extends BaseController {
 
     public void initialize(){
         if (editSource == null) {
-            lastVisit.setValue(LocalDate.now());
+            lastVisit.setValue(LocalDate.now()); // fix to disallow empty values
         }
     }
 }

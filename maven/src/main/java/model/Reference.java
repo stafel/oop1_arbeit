@@ -2,7 +2,7 @@ package model;
 
 import java.io.Serializable;
 
-public class Reference implements IReference, Serializable {
+public class Reference implements IReference {
     private String name;
     private String page;
 
